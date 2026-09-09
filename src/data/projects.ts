@@ -55,7 +55,6 @@ export const projects: Project[] = [
   {
     slug: "imperial-capital",
     title: "Imperial Capital",
-    category: "\u00a0Fantasy City",
     filter: "fantasy",
     description: [
       "Imperial Capital was built as the first thing a player sees and the last thing they forget. The city climbs a carved massif in tiers, so every street reveals a new silhouette instead of a flat skyline.",
@@ -116,8 +115,8 @@ export const projects: Project[] = [
   {
     slug: "raven-colossus",
     title: "Raven Colossus",
-    category: "Streamer Server",
-    filter: "commissions",
+    category: "Organic Build",
+    filter: "fantasy",
     description: [
       "A colossal raven-like figure standing on a stepped plateau, wrapped in wide sweeping black arcs that read as wings, wind and motion at once.",
       "Built from anatomy outward — mass, weight and gesture first, surface detail last — so the silhouette holds from far render distance and still resolves up close.",
@@ -131,8 +130,8 @@ export const projects: Project[] = [
   {
     slug: "creature-maw",
     title: "Naga",
-    category: "Streamer Server",
-    filter: "commissions",
+    category: "Organic Build",
+    filter: "fantasy",
     description: [
       "The figure breaks the treeline: jaws open, body carved in mossed stone, canopy pushed up against it so scale registers immediately.",
       "Non-architectural forms like this are where blockwork is hardest — every curve is resolved by hand, and the planting frames the head rather than hiding the body.",
@@ -146,8 +145,8 @@ export const projects: Project[] = [
   {
     slug: "glass-arcana",
     title: "Water Arcana",
-    category: "Streamer Server",
-    filter: "commissions",
+    category: "Special Effects",
+    filter: "fantasy",
     description: [
       "A visual-effects piece built entirely from blocks: translucent glass masses, blue currents and sharp yellow and pink accents spiralling out of a small central statue.",
       "The composition works as motion frozen mid-frame — density, transparency and colour are tuned so the eye returns to the figure holding the lantern.",

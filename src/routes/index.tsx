@@ -198,7 +198,7 @@ function Hero() {
         </div>
 
         <div className="absolute right-5 bottom-16 hidden flex-col items-center gap-3 md:right-10 md:flex">
-          <span className="label-mono [writing-mode:vertical-rl]">{t("SCROLL")}</span>
+          <span className="label-mono [writing-mode:vertical-rl]">scroll</span>
           <span className="h-16 w-px bg-border-strong" />
         </div>
       </section>
@@ -220,7 +220,7 @@ function Intro() {
         <Reveal className="md:col-span-5 md:pt-4" delay={200}>
           <p className="body-lg">
             {t(
-              "I build custom Minecraft architecture, environments and complete worlds on commission — for servers, creators and studios that need a place, not a pile of blocks.",
+              "I build custom Minecraft architecture, environments and complete worlds on commission — for servers, creators and individuals that need a place, not a pile of blocks.",
             )}
           </p>
           <dl className="mt-10 grid grid-cols-2 gap-y-4 border-t border-border pt-6">
@@ -363,17 +363,15 @@ function About() {
       <div className="mx-auto max-w-[1600px] px-5 py-20 md:px-10 md:py-32">
         <div className="grid gap-12 md:grid-cols-12 md:gap-16">
           <div className="md:col-span-6">
-            <p className="label-mono">{t("ABOUT")}</p>
+            <p className="label-mono leading-[16px]"></p>
             <RevealLines
               className="display-lg mt-6"
+              lineTextClassName={(index) =>
+                index === 0 ? "!text-[45px] !leading-[65px]" : "!text-[60px] !leading-[65px]"
+              }
               lines={[t("Not just blocks."), t("Places with identity.")]}
             />
             <Reveal delay={160} className="mt-8 max-w-lg space-y-5">
-              <p className="body-lg">
-                {t(
-                  "I treat Minecraft building as Art. Composition, scale and atmosphere come before decoration.",
-                )}
-              </p>
               <p className="body-lg">
                 {t(
                   "Every commission starts with the same questions: where does the player stand, what do they see first, and what does this place tell them about the world it belongs to. Environment, silhouette and storytelling are handled as one problem — which is why the builds hold up in screenshots and in play.",
@@ -412,7 +410,10 @@ function FinalCta() {
       <div className="absolute inset-0 bg-linear-to-b from-background/70 via-background/80 to-background" />
       <div className="relative mx-auto max-w-[1600px] px-5 py-28 md:px-10 md:py-48">
         <RevealLines
-          className="display-xl max-w-[16ch]"
+          className="display-xl max-w-[16ch] [&>span:first-child]:![transform:translateY(-10px)] [&>span:first-child]:!translate-y-[10px] [&>span:first-child>span]:![transform:translateY(8px)]"
+          lineTextClassName={(index) =>
+            index === 0 ? "!text-[60px] !leading-[65px]" : "!text-[60px] !leading-[80px]"
+          }
           lines={[t("Have a world in mind?"), t("Let's build it.")]}
         />
         <Reveal delay={160} className="mt-6 max-w-2xl">

@@ -59,7 +59,7 @@ export function RevealLines({
   lines: string[];
   className?: string;
   lineClassName?: string;
-  lineTextClassName?: string;
+  lineTextClassName?: string | ((index: number) => string);
   immediate?: boolean;
   stagger?: number;
 }) {
@@ -74,7 +74,9 @@ export function RevealLines({
           className={cn("line-rise", lineClassName)}
         >
           <span
-            className={lineTextClassName}
+            className={
+              typeof lineTextClassName === "function" ? lineTextClassName(i) : lineTextClassName
+            }
             style={{ transitionDelay: `${i * stagger}ms` }}
           >
             {line}

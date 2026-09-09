@@ -12,18 +12,18 @@ export function SiteFooter() {
             <p className="label-mono text-foreground">ILLEGAL CAFFEINE - DESIGNER -</p>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
               {t(
-                "Independent Minecraft building and worldbuilding studio. Commissions for servers, creators and studios.",
+                "Independent worldbuilding studio.\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 Commissions for servers, creators and individuals.",
               )}
             </p>
           </div>
 
           <div className="flex flex-col gap-3">
-            <p className="label-mono">{t("Navigate")}</p>
+            <p className="label-mono underline">{t("Navigate")}</p>
             <Link to="/" className="text-sm text-muted-foreground hover:text-foreground">
               {t("Index")}
             </Link>
             <Link to="/work" className="text-sm text-muted-foreground hover:text-foreground">
-              {t("Previous Works")}
+              {t("archive")}
             </Link>
             <Link to="/contact" className="text-sm text-muted-foreground hover:text-foreground">
               {t("Start a Project")}

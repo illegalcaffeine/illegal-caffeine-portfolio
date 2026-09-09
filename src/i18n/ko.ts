@@ -6,7 +6,7 @@
 export const ko: Record<string, string> = {
   // ---------------------------------------------------------------- navigation
   Index: "홈",
-  "Previous Works": "지난 작업",
+  "\u00a0previous works": " 최근 작업",
   Payment: "결제",
   Contact: "문의",
   Navigate: "메뉴",
@@ -14,7 +14,6 @@ export const ko: Record<string, string> = {
   "Start a Project": "프로젝트 문의하기",
   "View Work": "작업 보기",
   "View all previous works": "최근 작업 전체 보기",
-  SCROLL: "스크롤",
   "Illegal Caffeine - Designer - — home": "Illegal Caffeine - Designer - — 홈",
   "Main": "주요 메뉴",
   Mobile: "모바일 메뉴",
@@ -24,10 +23,10 @@ export const ko: Record<string, string> = {
 
   // ---------------------------------------------------------------------- home
   "Minecraft Builds · Worlds · Commissions": "마인크래프트 건축 · 월드 · 커미션",
-  "you just found": "방금 찾은",
-  "the hidden gem": "숨겨진 보석",
-  "I build custom Minecraft architecture, environments and complete worlds on commission — for servers, creators and studios that need a place, not a pile of blocks.":
-    "서버, 크리에이터, 스튜디오를 위해 마인크래프트 건축과 환경, 그리고 하나의 완성된 월드를 커미션으로 제작합니다. 단순한 블록 더미가 아닌, 유저의 시점에서 자연스럽고 편안한 장소를 만듭니다.",
+  "you just found": "안녕하세요",
+  "the hidden gem": "illcaffeine입니다",
+  "I build custom Minecraft architecture, environments and complete worlds on commission — for servers, creators and individuals that need a place, not a pile of blocks.":
+    "다년간의 수많은 해외 외주 경험을 바탕으로 서버, 크리에이터, 개인을 위해 마인크래프트 건축과 환경, 그리고 하나의 완성된 월드를 제작합니다. 단순한 블록이 아닌, 유저의 시점에서 자연스럽고 편안한 장소를 만듭니다.",
   Discipline: "분야",
   "BUILD / WORLDBUILD": "건축 / 월드빌딩",
   Edition: "에디션",
@@ -38,7 +37,7 @@ export const ko: Record<string, string> = {
   "WHAT WE BUILD": "작업 분야",
   "THE BUILD CYCLE": "작업 과정",
   ABOUT: "소개",
-  ARCHIVE: "아카이브",
+  archive: "아카이브",
   GALLERY: "갤러리",
   "Open image": "이미지 열기",
   IMAGES: "장",
@@ -48,7 +47,7 @@ export const ko: Record<string, string> = {
   "Arrival, wayfinding, first impression.": "도착, 동선, 그리고 첫인상.",
   "Cities & Towns": "도시 & 마을",
   "Street grids, districts, density.": "가로 구조, 구역, 밀도.",
-  "Fantasy Worlds": "판타지 월드",
+  "Fantasy Worlds": "오픈월드 맵",
   "Monuments, kingdoms, invented cultures.": "기념비, 왕국, 새로 만들어낸 문화.",
   "Terrain & Environments": "지형 & 환경",
   "BUILT LIKE NOTHING YOU'VE SEEN BEFORE.": "지금까지 본 적 없는 방식으로 만듭니다.",
@@ -57,9 +56,9 @@ export const ko: Record<string, string> = {
   // build cycle
   Brief: "브리프",
   "We agree on purpose, references, scale and constraints before a block is placed.":
-    "블록을 한 개 놓기 전에 목적, 레퍼런스, 규모, 제약 조건을 함께 정리합니다.",
+    "작업 시작 전에 목적, 레퍼런스, 규모, 제약 조건을 함께 정리하고 계약 진행합니다.",
   "Concept / Blockout": "컨셉 / 블록아웃",
-  "Massing, silhouettes and circulation.": "매스, 실루엣, 동선.",
+  "Massing, silhouettes and circulation.": "전반적인 동선, 실루엣, 컨셉을 잡아나갑니다.",
   Build: "본 작업",
   "Palette locked, structure detailed, the world built out region by region.":
     "팔레트를 확정하고 구조를 다듬으며, 월드를 구역 단위로 완성해 나갑니다.",
@@ -70,16 +69,14 @@ export const ko: Record<string, string> = {
   "Schematics or world files handed over.": "스키매틱 또는 월드 파일로 전달합니다.",
 
   // about
-  "Not just blocks.": "단순한 블록이 아니라,",
-  "Places with identity.": "정체성이 있는 장소를.",
-  "I treat Minecraft building as Art. Composition, scale and atmosphere come before decoration.":
-    "나는 마인크래프트 건축을 예술로 다룹니다. 구성, 스케일, 분위기가 장식보다 먼저입니다.",
+  "Not just blocks.": "단순한 블록이 아닌,",
+  "Places with identity.": "정체성이 있는 장소.",
   "Every commission starts with the same questions: where does the player stand, what do they see first, and what does this place tell them about the world it belongs to. Environment, silhouette and storytelling are handled as one problem — which is why the builds hold up in screenshots and in play.":
-    "모든 커미션은 같은 질문에서 시작합니다. 플레이어는 어디에 서 있고, 무엇을 가장 먼저 보게 되며, 이 장소는 자신이 속한 세계에 대해 무엇을 말하는가. 환경과 실루엣, 그리고 이야기를 하나의 문제로 다루기 때문에 스크린샷에서도, 실제 플레이에서도 무너지지 않습니다.",
+    "모든 커미션은 같은 질문에서 시작합니다. 플레이어는 어디에 서 있고, 무엇을 가장 먼저 보게 되며, 이 장소는 자신이 속한 세계에 대해 무엇을 말하는가. 환경과 실루엣, 그리고 이야기를 하나의 건축으로 엮어갑니다. 쉐이더 없이도 인게임에서 아름다운 건축을 추구합니다.",
 
   // final CTA
-  "Have a world in mind?": "떠올리는 월드가 있나요?",
-  "Let's build it.": "함께 만들어 봅시다.",
+  "Have a world in mind?": "만들고 싶은 월드가 있으신가요?",
+  "Let's build it.": "들을 준비가 되어있습니다. ",
   "\u00a0I work comfortably at every scale — from focused builds to massive, fully realized openworlds.":
     "\u00a0모든 스케일을 편하게 다룹니다 — 작은 집중형 빌드부터 완전히 구현된 대규모 오픈월드까지.",
 
@@ -95,7 +92,7 @@ export const ko: Record<string, string> = {
   "Filter projects": "작업 분류",
   All: "전체",
   Spawns: "스폰",
-  Cities: "도시",
+  Cities: "특수효과",
   Fantasy: "판타지",
   Terrain: "지형",
   "NO PROJECTS IN THIS CATEGORY YET": "이 분류에는 아직 작업이 없습니다",
@@ -105,7 +102,6 @@ export const ko: Record<string, string> = {
   "Want something like this?": "이런 작업을 원하시나요?",
 
   // project categories
-  "\u00a0Fantasy City": "\u00a0Fantasy City",
   "Fantasy Architecture": "판타지 건축",
   "\u00a0experimental,player-scaled": "\u00a0experimental,player-scaled",
   "Server Spawn": "서버 스폰",
@@ -230,10 +226,10 @@ export const ko: Record<string, string> = {
     "커미션을 미리 비공개로 합의하지 않은 경우, 스튜디오는 해당 작업을 포트폴리오에 공개할 수 있습니다.",
 
   // -------------------------------------------------------------------- footer
-  "Independent Minecraft building and worldbuilding studio. Commissions for servers, creators and studios.":
-    "독립 마인크래프트 건축 · 월드빌딩 스튜디오. 서버, 크리에이터, 스튜디오를 위한 커미션을 진행합니다.",
+  "Independent worldbuilding studio.\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 Commissions for servers, creators and individuals.":
+    "독립 마인크래프트 건축 · 월드빌딩 스튜디오.\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 서버, 크리에이터, 여러분을 위한 커미션을 진행합니다.",
   "EDITION / JAVA": "에디션 / 자바",
-  "COMMISSIONS / OPEN": "커미션 / 진행 중",
+  "COMMISSIONS / OPEN": "커미션 / 가능",
   "NOT AFFILIATED WITH MOJANG OR MICROSOFT": "MOJANG 및 MICROSOFT와 무관합니다",
 
   // ------------------------------------------------------------ language gate

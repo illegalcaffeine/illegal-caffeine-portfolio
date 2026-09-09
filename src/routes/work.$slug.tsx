@@ -58,7 +58,9 @@ function ProjectPage() {
             <ArrowLeft className="h-3.5 w-3.5" aria-hidden /> {t("All work")}
           </Link>
           {project.category && (
-            <p className="label-mono mt-8 text-foreground">{t(project.category)}</p>
+            <p className="label-mono mt-8 text-foreground">
+              {project.category === "Streamer Server" ? "" : t(project.category)}
+            </p>
           )}
           <RevealLines immediate className="display-xl mt-4" lines={[project.title]} />
         </div>
