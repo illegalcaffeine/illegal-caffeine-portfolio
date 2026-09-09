@@ -113,9 +113,6 @@ function WorkPage() {
                 )}
                 <span className="pointer-events-none absolute inset-x-0 bottom-0 bg-linear-to-t from-background/85 to-transparent p-3 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
                   <span className="label-mono text-foreground">{project.title}</span>
-                  {project.category && (
-                    <span className="label-mono mt-1 block">{t(project.category)}</span>
-                  )}
                 </span>
               </Link>
             );
