@@ -18,7 +18,7 @@ export function SiteFooter() {
           </div>
 
           <div className="flex flex-col gap-3">
-            <p className="label-mono">{t("Navigate")}</p>
+            <p className="label-mono underline">{t("Navigate")}</p>
             <Link to="/" className="text-sm text-muted-foreground hover:text-foreground">
               {t("Index")}
             </Link>

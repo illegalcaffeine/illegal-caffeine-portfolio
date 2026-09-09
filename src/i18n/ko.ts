@@ -6,7 +6,7 @@
 export const ko: Record<string, string> = {
   // ---------------------------------------------------------------- navigation
   Index: "홈",
-  "previous works": " 최근 작업",
+  "\u00a0previous works": " 최근 작업",
   Payment: "결제",
   Contact: "문의",
   Navigate: "메뉴",

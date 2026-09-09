@@ -46,7 +46,7 @@ function WorkPage() {
     <>
       <section className="border-b border-border px-5 pt-32 pb-10 md:px-10 md:pt-48 md:pb-14">
         <div className="mx-auto max-w-[1600px]">
-          <p className="label-mono">{t("previous works")}</p>
+          <p className="label-mono">{t("\u00a0previous works")}</p>
           <h1 className="display-xl mt-6 !text-[60px]">{t("archive")}</h1>
         </div>
       </section>
