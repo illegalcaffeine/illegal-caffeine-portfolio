@@ -34,7 +34,10 @@ export function ProjectPreview({
         src={project.cover}
         alt={`${project.title} built in Minecraft`}
         loading={eager ? "eager" : "lazy"}
-        className="absolute inset-0 h-full w-full object-cover"
+        className={cn(
+          "absolute inset-0 h-full object-cover",
+          layout === "offset-right" ? "w-[90%]" : "w-full",
+        )}
       />
     </div>
   );

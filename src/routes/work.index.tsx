@@ -47,7 +47,7 @@ function WorkPage() {
       <section className="border-b border-border px-5 pt-32 pb-10 md:px-10 md:pt-48 md:pb-14">
         <div className="mx-auto max-w-[1600px]">
           <p className="label-mono">{t("ARCHIVE")}</p>
-          <h1 className="display-xl mt-6">{t("Previous Works")}</h1>
+          <h1 className="display-xl mt-6 !text-[60px]">{t("Previous Works")}</h1>
         </div>
       </section>
 
@@ -95,20 +95,22 @@ function WorkPage() {
                 style={{ flexGrow: ratio * weight, flexBasis: `${basis}px` }}
                 className="group animate-fade-in relative block min-w-[45%] overflow-hidden bg-surface md:min-w-[220px]"
               >
-                <img
-                  src={project.cover}
-                  alt={`${project.title} built in Minecraft`}
-                  loading={i < 4 ? "eager" : "lazy"}
-                  onLoad={(event) => {
-                    const el = event.currentTarget;
-                    if (!el.naturalHeight) return;
-                    const next = el.naturalWidth / el.naturalHeight;
-                    setRatios((prev) =>
-                      prev[project.slug] === next ? prev : { ...prev, [project.slug]: next },
-                    );
-                  }}
-                  className="block h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-                />
+                {project.slug !== "raven-colossus" && (
+                  <img
+                    src={project.cover}
+                    alt={`${project.title} built in Minecraft`}
+                    loading={i < 4 ? "eager" : "lazy"}
+                    onLoad={(event) => {
+                      const el = event.currentTarget;
+                      if (!el.naturalHeight) return;
+                      const next = el.naturalWidth / el.naturalHeight;
+                      setRatios((prev) =>
+                        prev[project.slug] === next ? prev : { ...prev, [project.slug]: next },
+                      );
+                    }}
+                    className="block h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                  />
+                )}
                 <span className="pointer-events-none absolute inset-x-0 bottom-0 bg-linear-to-t from-background/85 to-transparent p-3 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
                   <span className="label-mono text-foreground">{project.title}</span>
                   {project.category && (

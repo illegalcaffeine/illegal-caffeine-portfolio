@@ -6,7 +6,7 @@
 export const ko: Record<string, string> = {
   // ---------------------------------------------------------------- navigation
   Index: "홈",
-  "Previous Works": "지난 작업",
+  "Previous Works": "아카이브",
   Payment: "결제",
   Contact: "문의",
   Navigate: "메뉴",
@@ -37,7 +37,7 @@ export const ko: Record<string, string> = {
   "WHAT WE BUILD": "작업 분야",
   "THE BUILD CYCLE": "작업 과정",
   ABOUT: "소개",
-  ARCHIVE: "아카이브",
+  ARCHIVE: " 최근 작업",
   GALLERY: "갤러리",
   "Open image": "이미지 열기",
   IMAGES: "장",
@@ -92,7 +92,7 @@ export const ko: Record<string, string> = {
   "Filter projects": "작업 분류",
   All: "전체",
   Spawns: "스폰",
-  Cities: "도시",
+  Cities: "특수효과",
   Fantasy: "판타지",
   Terrain: "지형",
   "NO PROJECTS IN THIS CATEGORY YET": "이 분류에는 아직 작업이 없습니다",
