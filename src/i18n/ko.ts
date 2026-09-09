@@ -15,7 +15,7 @@ export const ko: Record<string, string> = {
   "View Work": "작업 보기",
   "View all previous works": "최근 작업 전체 보기",
   "Illegal Caffeine - Designer - — home": "Illegal Caffeine - Designer - — 홈",
-  "Main": "주요 메뉴",
+  Main: "주요 메뉴",
   Mobile: "모바일 메뉴",
   "Open menu": "메뉴 열기",
   "Close menu": "메뉴 닫기",
@@ -113,8 +113,7 @@ export const ko: Record<string, string> = {
   // ------------------------------------------------------------------- payment
   PAYPAL: "PayPal",
   "PAYMENT VIA PAYPAL": "PayPal로 결제",
-  "Commission payments are handled through PayPal.":
-    "커미션 결제는 PayPal을 통해 진행됩니다.",
+  "Commission payments are handled through PayPal.": "커미션 결제는 PayPal을 통해 진행됩니다.",
   "This website does not process payments directly.":
     "이 웹사이트에서는 결제가 직접 처리되지 않습니다.",
   "Payment details are provided after the project scope and terms are agreed.":
@@ -155,8 +154,7 @@ export const ko: Record<string, string> = {
     "링크, 스크린샷, 원하는 스타일이나 참고할 건축물…",
   "Anything else — file format, interiors, schematic splits, redstone…":
     "그 외 요청 — 파일 형식, 내부 공간, 스키매틱 분할, 레드스톤…",
-  "I have read and accept the commission terms above.":
-    "위 커미션 약관을 읽고 동의합니다.",
+  "I have read and accept the commission terms above.": "위 커미션 약관을 읽고 동의합니다.",
   "Please fix the highlighted fields.": "표시된 항목을 확인해 주세요.",
   "The inquiry couldn't be saved. Please try again in a moment.":
     "문의를 저장하지 못했습니다. 잠시 후 다시 시도해 주세요.",
@@ -236,7 +234,7 @@ export const ko: Record<string, string> = {
   // ------------------------------------------------------------ language gate
   "Choose your language": "언어를 선택하세요",
   ENGLISH: "ENGLISH",
-  "한국어": "한국어",
+  한국어: "한국어",
 
   // ------------------------------------------------------------ error screens
   "ERROR / 404": "오류 / 404",
@@ -259,8 +257,7 @@ export const ko: Record<string, string> = {
 
   "Backed by a background in Fine Art and three-dimensional art, I specialize in translating organic, sculptural forms into Minecraft — from anatomy and creatures to complex natural structures.":
     "순수미술과 입체 조형을 기반으로, 해부학과 생물부터 복잡한 자연 구조까지 유기적이고 조각적인 형태를 마인크래프트로 옮기는 작업을 전문으로 합니다.",
-  "Featured work: award winner at the KIBO COMPETITION.":
-    "주요 이력: KIBO COMPETITION 수상작.",
+  "Featured work: award winner at the KIBO COMPETITION.": "주요 이력: KIBO COMPETITION 수상작.",
   "kibo 2025 competition build": "kibo 2025 competition build",
   "Sculptural raid map": "Sculptural raid map",
 
@@ -341,11 +338,15 @@ export const ko: Record<string, string> = {
   "Sculpted range nearby": "인접한 조형 산맥",
 
   "Upload reference images": "레퍼런스 이미지 업로드",
-  "JPG, PNG or WebP · up to 5 images · 5 MB each · 15 MB total": "JPG, PNG 또는 WebP · 최대 5장 · 장당 5MB · 총 15MB",
+  "JPG, PNG or WebP · up to 5 images · 10 MB each · 25 MB total":
+    "JPG, PNG 또는 WebP · 최대 5장 · 장당 10MB · 총 25MB",
   "Remove image": "이미지 제거",
-  "You can upload up to 5 reference images.": "레퍼런스 이미지는 최대 5장까지 업로드할 수 있습니다.",
-  "Reference images must be JPG, PNG or WebP.": "레퍼런스 이미지는 JPG, PNG 또는 WebP 형식이어야 합니다.",
-  "Each reference image must be 5 MB or smaller.": "레퍼런스 이미지는 장당 5MB 이하여야 합니다.",
-  "Reference images must be 15 MB or smaller in total.": "레퍼런스 이미지의 총 용량은 15MB 이하여야 합니다.",
+  "You can upload up to 5 reference images.":
+    "레퍼런스 이미지는 최대 5장까지 업로드할 수 있습니다.",
+  "Reference images must be JPG, PNG or WebP.":
+    "레퍼런스 이미지는 JPG, PNG 또는 WebP 형식이어야 합니다.",
+  "Each reference image must be 10 MB or smaller.": "레퍼런스 이미지는 장당 10MB 이하여야 합니다.",
+  "Reference images must be 25 MB or smaller in total.":
+    "레퍼런스 이미지의 총 용량은 25MB 이하여야 합니다.",
   "Links, styles or builds you want it to feel like…": "원하는 분위기의 링크, 스타일 또는 건축물…",
 };
