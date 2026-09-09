@@ -4,6 +4,7 @@ import { z } from "zod";
 import { ArrowRight, Check, Loader2 } from "lucide-react";
 
 import { supabase } from "@/integrations/supabase/client";
+import { sendInquiryEmail } from "@/server/send-inquiry-email";
 import { Reveal, RevealLines } from "@/components/site/reveal";
 import { cn } from "@/lib/utils";
 import { useT } from "@/i18n";
@@ -124,6 +125,27 @@ function ContactPage() {
       setStatus("error");
       setFormError(t("The inquiry couldn't be saved. Please try again in a moment."));
       return;
+    }
+
+    try {
+      await sendInquiryEmail({
+        data: {
+          name: parsed.data.name,
+          email: parsed.data.email,
+          discord: parsed.data.discord || undefined,
+          project_type: parsed.data.project_type,
+          build_scale: parsed.data.build_scale || undefined,
+          budget_range: parsed.data.budget_range || undefined,
+          deadline: parsed.data.deadline || undefined,
+          description: parsed.data.description,
+          references: parsed.data.references || undefined,
+          extras: parsed.data.extras || undefined,
+        },
+      });
+    } catch (emailError) {
+      console.error(emailError);
+      // The inquiry is already safely stored in Supabase. Do not ask the
+      // visitor to resubmit and create a duplicate record if email delivery fails.
     }
 
     form.reset();
