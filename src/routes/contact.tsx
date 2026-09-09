@@ -135,7 +135,12 @@ function ContactPage() {
       <section className="border-b border-border px-5 pt-32 pb-12 md:px-10 md:pt-48 md:pb-16">
         <div className="mx-auto max-w-[1600px]">
           <p className="label-mono">{t("COMMISSION / INQUIRY")}</p>
-          <RevealLines immediate className="display-xl mt-6" lines={[t("Start a project")]} />
+          <RevealLines
+            immediate
+            className="display-xl mt-6"
+            lineTextClassName="text-[65px]"
+            lines={[t("Start a project")]}
+          />
           <p className="body-lg mt-8 max-w-xl">
             {t(
               "Tell me what you want to exist. Briefs with references, scale and a rough deadline get the most useful reply.",
@@ -151,7 +156,7 @@ function ContactPage() {
               <div>
                 <p className="label-mono">{t("Response")}</p>
                 <p className="mt-2 text-sm text-muted-foreground">
-                  {t("Every inquiry is read and answered by email.")}
+                  {t("Every inquiry is read and answered by email or Discord.")}
                 </p>
               </div>
               <div>
@@ -436,20 +441,20 @@ const terms: { title: string; points: string[] }[] = [
     title: "1. Scope & brief",
     points: [
       "The commission starts once the build type, style, approximate scale, deadline and price are agreed in writing.",
-      "Anything outside the agreed brief is treated as a new request and may affect price and schedule.",
+      "Additional requests outside the agreed brief are treated as new requests and may affect price and schedule.",
     ],
   },
   {
     title: "2. Schedule",
     points: [
       "Timelines are estimates based on the agreed scale and the current queue.",
-      "Delays caused by late feedback, missing references or changes to the brief extend the schedule accordingly.",
+      "Delays caused by late feedback, missing references or changes to the brief extend the schedule accordingly and are not refundable.",
     ],
   },
   {
     title: "3. Payment",
     points: [
-      "Payments are handled through PayPal. This website does not process payments.",
+      "Payments are handled through PayPal or bank transfer. This website does not process payments.",
       "Larger commissions are usually split into a deposit before work begins and a final payment on delivery.",
       "Files are delivered once the agreed payment has cleared.",
     ],
@@ -457,7 +462,7 @@ const terms: { title: string; points: string[] }[] = [
   {
     title: "4. Revisions",
     points: [
-      "Reasonable revisions within the agreed brief are included during the build.",
+      "Reasonable revisions within the agreed brief are included during the build. (Up to two free revisions.)",
       "Full redesigns, style changes or added areas are quoted separately.",
     ],
   },
@@ -466,7 +471,6 @@ const terms: { title: string; points: string[] }[] = [
     points: [
       "Either side may cancel before work begins; in that case any deposit is refunded in full.",
       "If the commission is cancelled after work has started, completed work is invoiced and the remaining balance is refunded.",
-      "If the build is not delivered as agreed, a partial or full refund is arranged in proportion to what was delivered.",
       "Refunds are not offered for changes of mind after final delivery and approval.",
     ],
   },
@@ -476,7 +480,7 @@ const terms: { title: string; points: string[] }[] = [
       "Builds are delivered as schematics or world files, along with render shots where relevant.",
       "You may use the delivered build freely on your own servers and projects.",
       "Reselling or redistributing the build files as a standalone product is not permitted without agreement.",
-      "The studio may show the work in its portfolio unless a private commission is agreed in advance.",
+      "The studio may show the work in its portfolio unless a commission is agreed to be private in advance.",
     ],
   },
 ];
@@ -488,7 +492,7 @@ function CommissionTerms() {
       <p className="label-mono text-foreground">{t("COMMISSION TERMS")}</p>
       <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">
         {t(
-          "A short, plain-language agreement so both sides know what to expect. Details specific to your project are confirmed by email before work begins.",
+          "A short, plain-language agreement so both sides know what to expect. Details specific to your project are confirmed directly in conversation before work begins.",
         )}
       </p>
       <div className="mt-8 space-y-6">

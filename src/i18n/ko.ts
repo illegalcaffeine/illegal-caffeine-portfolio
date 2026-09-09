@@ -126,10 +126,10 @@ export const ko: Record<string, string> = {
   // ------------------------------------------------------------------- contact
   "COMMISSION / INQUIRY": "커미션 / 문의",
   "Tell me what you want to exist. Briefs with references, scale and a rough deadline get the most useful reply.":
-    "만들고 싶은 것을 알려주세요. 레퍼런스와 규모, 대략적인 마감일이 담긴 문의일수록 더 정확한 답변을 드릴 수 있습니다.",
+    "만들고 싶은 것을 알려주세요. 레퍼런스와 규모, 대략적인 마감일이 담긴 문의일수록   더  정확한 답변을 드릴 수 있습니다.",
   Response: "답변",
-  "Every inquiry is read and answered by email.":
-    "모든 문의는 확인 후 이메일로 답변드립니다.",
+  "Every inquiry is read and answered by email or Discord.":
+    "모든 문의는 확인 후 이메일이나 디스코드로 답변 드립니다.",
   "Java. Bedrock on request.": "자바 에디션. 베드락은 요청 시 가능합니다.",
   Direct: "직접 연락",
   "Discord: illcaffeine": "디스코드: illcaffeine",
@@ -188,28 +188,28 @@ export const ko: Record<string, string> = {
 
   // commission terms
   "COMMISSION TERMS": "커미션 약관",
-  "A short, plain-language agreement so both sides know what to expect. Details specific to your project are confirmed by email before work begins.":
-    "서로의 기대를 분명히 하기 위한 간단한 약관입니다. 프로젝트별 세부 사항은 작업 시작 전에 이메일로 확정합니다.",
+  "A short, plain-language agreement so both sides know what to expect. Details specific to your project are confirmed directly in conversation before work begins.":
+    "서로의 기대를 분명히 하기 위한 간단한 약관입니다. 프로젝트별 세부 사항은 작업 시작 전에 직접 대화로 확정합니다.",
   "1. Scope & brief": "1. 작업 범위 & 브리프",
   "The commission starts once the build type, style, approximate scale, deadline and price are agreed in writing.":
     "건축 유형, 스타일, 대략적인 규모, 마감일, 금액이 서면으로 합의되면 커미션이 시작됩니다.",
-  "Anything outside the agreed brief is treated as a new request and may affect price and schedule.":
-    "합의된 범위를 벗어나는 요청은 새로운 요청으로 보며, 금액과 일정에 영향을 줄 수 있습니다.",
+  "Additional requests outside the agreed brief are treated as new requests and may affect price and schedule.":
+    "합의된 범위를 벗어나는 추가요청은 새로운 요청으로 보며, 금액과 일정에 영향을 줄 수 있습니다.",
   "2. Schedule": "2. 일정",
   "Timelines are estimates based on the agreed scale and the current queue.":
     "일정은 합의된 규모와 현재 대기 상황을 기준으로 한 예상치입니다.",
-  "Delays caused by late feedback, missing references or changes to the brief extend the schedule accordingly.":
-    "피드백 지연, 레퍼런스 누락, 브리프 변경으로 인한 지연은 그만큼 일정이 늘어납니다.",
+  "Delays caused by late feedback, missing references or changes to the brief extend the schedule accordingly and are not refundable.":
+    "피드백 지연, 레퍼런스 누락, 브리프 변경으로 인한 지연은 그만큼 일정이 늘어나며, 환불대상이 아닙니다.",
   "3. Payment": "3. 결제",
-  "Payments are handled through PayPal. This website does not process payments.":
-    "결제는 페이팔을 통해 진행되며, 이 웹사이트에서 결제가 처리되지는 않습니다.",
+  "Payments are handled through PayPal or bank transfer. This website does not process payments.":
+    "결제는 페이팔, 계좌이체를 통해 진행되며, 이 웹사이트에서 결제가 처리되지는 않습니다.",
   "Larger commissions are usually split into a deposit before work begins and a final payment on delivery.":
     "규모가 큰 커미션은 보통 작업 시작 전 선금과 전달 시 잔금으로 나누어 진행합니다.",
   "Files are delivered once the agreed payment has cleared.":
     "합의된 결제가 확인되면 파일을 전달합니다.",
   "4. Revisions": "4. 수정",
-  "Reasonable revisions within the agreed brief are included during the build.":
-    "합의된 범위 안에서의 합리적인 수정은 작업 중에 포함됩니다.",
+  "Reasonable revisions within the agreed brief are included during the build. (Up to two free revisions.)":
+    "합의된 범위 안에서의 합리적인 수정은 작업 중에 포함됩니다.(최대 2회 무료수정)",
   "Full redesigns, style changes or added areas are quoted separately.":
     "전면 재설계, 스타일 변경, 구역 추가는 별도로 견적을 안내합니다.",
   "5. Cancellation & refunds": "5. 취소 & 환불",
@@ -217,8 +217,6 @@ export const ko: Record<string, string> = {
     "작업 시작 전에는 양측 모두 취소할 수 있으며, 이 경우 선금은 전액 환불됩니다.",
   "If the commission is cancelled after work has started, completed work is invoiced and the remaining balance is refunded.":
     "작업이 시작된 뒤 취소되는 경우, 완료된 작업분을 청구하고 남은 금액은 환불합니다.",
-  "If the build is not delivered as agreed, a partial or full refund is arranged in proportion to what was delivered.":
-    "합의한 대로 전달되지 않은 경우, 전달된 범위에 비례해 부분 또는 전액 환불을 진행합니다.",
   "Refunds are not offered for changes of mind after final delivery and approval.":
     "최종 전달 및 확인 이후 단순한 변심에 대한 환불은 제공되지 않습니다.",
   "6. Delivery & usage": "6. 전달 & 사용",
@@ -228,8 +226,8 @@ export const ko: Record<string, string> = {
     "전달된 작업물은 본인의 서버와 프로젝트에서 자유롭게 사용할 수 있습니다.",
   "Reselling or redistributing the build files as a standalone product is not permitted without agreement.":
     "파일 자체를 독립된 상품으로 재판매하거나 재배포하는 것은 별도 합의 없이는 허용되지 않습니다.",
-  "The studio may show the work in its portfolio unless a private commission is agreed in advance.":
-    "비공개 커미션을 미리 합의하지 않은 경우, 스튜디오는 해당 작업을 포트폴리오에 공개할 수 있습니다.",
+  "The studio may show the work in its portfolio unless a commission is agreed to be private in advance.":
+    "커미션을 미리 비공개로 합의하지 않은 경우, 스튜디오는 해당 작업을 포트폴리오에 공개할 수 있습니다.",
 
   // -------------------------------------------------------------------- footer
   "Independent Minecraft building and worldbuilding studio. Commissions for servers, creators and studios.":
