@@ -8,6 +8,7 @@ import {
   type ReactNode,
 } from "react";
 
+import { en } from "./en";
 import { ko } from "./ko";
 
 export type Language = "en" | "ko";
@@ -60,14 +61,14 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const t = useCallback(
-    (text: string) => {
-      if (lang !== "ko") return text;
-      const translated = ko[text];
-      if (translated) return translated;
-      if (import.meta.env.DEV && text.trim()) {
-        console.warn(`[i18n] Missing Korean translation: ${text}`);
+    (key: string) => {
+      const dictionary = lang === "ko" ? ko : en;
+      const translated = dictionary[key];
+      if (translated !== undefined) return translated;
+      if (import.meta.env.DEV && key.trim()) {
+        console.warn(`[i18n] Missing ${lang.toUpperCase()} copy: ${key}`);
       }
-      return text;
+      return key;
     },
     [lang],
   );
@@ -86,7 +87,7 @@ export function useLanguage() {
   return ctx;
 }
 
-/** Translate a visible English string into the active language. */
+/** Resolve a stable copy key from the active language dictionary. */
 export function useT() {
   return useLanguage().t;
 }
