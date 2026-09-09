@@ -78,7 +78,7 @@ function WorkPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-[1600px] px-2 py-6 md:px-3 md:py-8">
+      <section className="mx-auto max-w-[1600px] px-10 py-6 md:py-8">
         <div className="flex flex-wrap gap-1">
           {visible.map((project, i) => {
             const ratio = ratios[project.slug] ?? 3 / 2;

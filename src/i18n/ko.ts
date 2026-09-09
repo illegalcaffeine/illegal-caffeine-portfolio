@@ -102,7 +102,6 @@ export const ko: Record<string, string> = {
   "Want something like this?": "이런 작업을 원하시나요?",
 
   // project categories
-  "\u00a0Fantasy City": "\u00a0Fantasy City",
   "Fantasy Architecture": "판타지 건축",
   "\u00a0experimental,player-scaled": "\u00a0experimental,player-scaled",
   "Server Spawn": "서버 스폰",
