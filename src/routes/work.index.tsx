@@ -92,7 +92,19 @@ function WorkPage() {
                 to="/work/$slug"
                 params={{ slug: project.slug }}
                 aria-label={project.title}
-                style={{ flexGrow: ratio * weight, flexBasis: `${basis}px` }}
+                style={{
+                  flexGrow: ratio * weight,
+                  flexBasis: `${basis}px`,
+                  ...(project.slug === "raven-colossus"
+                    ? {
+                        backgroundImage:
+                          'url("https://cdn.builder.io/api/v1/image/assets%2Fc663a058e3444adcaa400eead08164f5%2F58899f1ca67e4bfabcd4673379a47a03")',
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "center",
+                        backgroundSize: "cover",
+                      }
+                    : {}),
+                }}
                 className="group animate-fade-in relative block min-w-[45%] overflow-hidden bg-surface md:min-w-[220px]"
               >
                 {project.slug !== "raven-colossus" && (
