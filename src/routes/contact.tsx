@@ -4,7 +4,7 @@ import { z } from "zod";
 import { ArrowRight, Check, Loader2 } from "lucide-react";
 
 import { supabase } from "@/integrations/supabase/client";
-import { sendInquiryEmail } from "@/server/send-inquiry-email";
+import { sendInquiryEmail } from "@/lib/send-inquiry-email.functions";
 import { Reveal, RevealLines } from "@/components/site/reveal";
 import { cn } from "@/lib/utils";
 import { useT } from "@/i18n";
