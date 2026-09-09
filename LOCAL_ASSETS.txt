@@ -1,0 +1,1 @@
+Local assets restored: Lovable asset metadata references were replaced with bundled files under src/assets/local/.
