@@ -28,7 +28,7 @@ export function ProjectPreview({
         layout === "full" && "aspect-4/3 md:aspect-21/9",
         layout === "wide" && "aspect-4/3 md:aspect-[2.6/1]",
         (layout === "offset-left" || layout === "offset-right") && "aspect-4/3 md:aspect-4/5",
-        "w-full h-full",
+        layout === "offset-right" ? "w-[90%] h-full ml-auto mr-0" : "w-full h-full",
       )}
     >
       <img
