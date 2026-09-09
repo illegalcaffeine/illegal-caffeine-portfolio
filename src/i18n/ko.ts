@@ -6,7 +6,7 @@
 export const ko: Record<string, string> = {
   // ---------------------------------------------------------------- navigation
   Index: "홈",
-  "Previous Works": "아카이브",
+  "previous works": " 최근 작업",
   Payment: "결제",
   Contact: "문의",
   Navigate: "메뉴",
@@ -37,7 +37,7 @@ export const ko: Record<string, string> = {
   "WHAT WE BUILD": "작업 분야",
   "THE BUILD CYCLE": "작업 과정",
   ABOUT: "소개",
-  ARCHIVE: " 최근 작업",
+  archive: "아카이브",
   GALLERY: "갤러리",
   "Open image": "이미지 열기",
   IMAGES: "장",
@@ -226,7 +226,7 @@ export const ko: Record<string, string> = {
     "커미션을 미리 비공개로 합의하지 않은 경우, 스튜디오는 해당 작업을 포트폴리오에 공개할 수 있습니다.",
 
   // -------------------------------------------------------------------- footer
-  "Independent Minecraft building and worldbuilding studio. Commissions for servers, creators and studios.":
+  "Independent worldbuilding studio.\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 Commissions for servers, creators and individuals.":
     "독립 마인크래프트 건축 · 월드빌딩 스튜디오.\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 서버, 크리에이터, 여러분을 위한 커미션을 진행합니다.",
   "EDITION / JAVA": "에디션 / 자바",
   "COMMISSIONS / OPEN": "커미션 / 가능",
