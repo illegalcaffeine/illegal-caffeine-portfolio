@@ -15,10 +15,12 @@ export function ProjectPreview({
   project,
   layout = "full",
   eager = false,
+  imageOverride,
 }: {
   project: Project;
   layout?: "full" | "offset-left" | "offset-right" | "wide";
   eager?: boolean;
+  imageOverride?: string;
 }) {
   const t = useT();
   const image = (
@@ -32,7 +34,7 @@ export function ProjectPreview({
       )}
     >
       <img
-        src={project.cover}
+        src={imageOverride ?? project.cover}
         alt={`${project.title} built in Minecraft`}
         loading={eager ? "eager" : "lazy"}
         className="absolute inset-0 h-full object-cover w-full"

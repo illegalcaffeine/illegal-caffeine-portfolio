@@ -19,6 +19,8 @@ import disciplineTerrain from "@/assets/local/white-range.png";
 import disciplineCustom from "@/assets/local/celestial-effigy.jpg";
 import streamerServers from "@/assets/local/streamer-servers.png";
 import profileImage from "@/assets/local/profile.png";
+import organicBuildsPreview from "@/assets/local/organic-builds-preview.png";
+import aboutOrganicBuild from "@/assets/local/about-organic-build.png";
 
 
 export const Route = createFileRoute("/")({
@@ -249,7 +251,13 @@ function SelectedWork() {
 
         <div className="flex flex-col gap-20 pb-20 md:gap-28 md:pb-28">
           {first && <ProjectPreview project={first} layout="full" eager />}
-          {second && <ProjectPreview project={second} layout="offset-right" />}
+          {second && (
+            <ProjectPreview
+              project={second}
+              layout="offset-right"
+              imageOverride={organicBuildsPreview}
+            />
+          )}
           {third && <ProjectPreview project={third} layout="wide" />}
         </div>
 
@@ -383,7 +391,7 @@ function About() {
             <Parallax strength={30}>
               <div className="zoom-frame relative aspect-4/5 border border-border bg-surface">
                 <img
-                  src={disciplineCustom}
+                  src={aboutOrganicBuild}
                   alt="Detailed ceremonial Minecraft sculpture study"
                   loading="lazy"
                   className="absolute inset-0 h-full w-full object-cover"

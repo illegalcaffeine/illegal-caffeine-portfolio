@@ -93,6 +93,7 @@ export const ko: Record<string, string> = {
   All: "전체",
   Spawns: "스폰",
   Cities: "특수효과",
+  "Special Effects": "특수효과",
   Fantasy: "판타지",
   Terrain: "지형",
   "NO PROJECTS IN THIS CATEGORY YET": "이 분류에는 아직 작업이 없습니다",
@@ -110,10 +111,10 @@ export const ko: Record<string, string> = {
   "Terrain / Environment": "지형 / 환경",
 
   // ------------------------------------------------------------------- payment
-  PAYPAL: "페이팔",
-  "PAYMENT VIA PAYPAL": "페이팔로 결제",
+  PAYPAL: "PayPal",
+  "PAYMENT VIA PAYPAL": "PayPal로 결제",
   "Commission payments are handled through PayPal.":
-    "커미션 결제는 페이팔을 통해 진행됩니다.",
+    "커미션 결제는 PayPal을 통해 진행됩니다.",
   "This website does not process payments directly.":
     "이 웹사이트에서는 결제가 직접 처리되지 않습니다.",
   "Payment details are provided after the project scope and terms are agreed.":
@@ -198,7 +199,7 @@ export const ko: Record<string, string> = {
     "피드백 지연, 레퍼런스 누락, 브리프 변경으로 인한 지연은 그만큼 일정이 늘어나며, 환불대상이 아닙니다.",
   "3. Payment": "3. 결제",
   "Payments are handled through PayPal or bank transfer. This website does not process payments.":
-    "결제는 페이팔, 계좌이체를 통해 진행되며, 이 웹사이트에서 결제가 처리되지는 않습니다.",
+    "결제는 PayPal, 계좌이체를 통해 진행되며, 이 웹사이트에서 결제가 처리되지는 않습니다.",
   "Larger commissions are usually split into a deposit before work begins and a final payment on delivery.":
     "규모가 큰 커미션은 보통 작업 시작 전 선금과 전달 시 잔금으로 나누어 진행합니다.",
   "Files are delivered once the agreed payment has cleared.":

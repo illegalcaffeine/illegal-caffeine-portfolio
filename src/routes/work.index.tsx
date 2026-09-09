@@ -147,7 +147,7 @@ function WorkPage() {
             </ArchiveTile>
           </ArchiveCategory>
 
-          {/* CITIES — add future city work inside this category. */}
+          {/* SPECIAL EFFECTS — add future special-effects work inside this category. */}
           <ArchiveCategory active={filter} category="cities">
             <ArchiveTile slug="grand-central" title="SPECIAL EFFECTS" weight={0.78}>
               <img src="/work/void-terrain.png" />

@@ -45,7 +45,7 @@ export type Project = {
 export const workFilters: { id: "all" | ProjectFilter; label: string }[] = [
   { id: "all", label: "All" },
   { id: "spawns", label: "Spawns" },
-  { id: "cities", label: "Cities" },
+  { id: "cities", label: "Special Effects" },
   { id: "fantasy", label: "Fantasy" },
   { id: "terrain", label: "Terrain" },
   { id: "commissions", label: "Streamer Servers" },
