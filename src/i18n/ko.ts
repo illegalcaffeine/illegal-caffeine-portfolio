@@ -227,7 +227,7 @@ export const ko: Record<string, string> = {
 
   // -------------------------------------------------------------------- footer
   "Independent Minecraft building and worldbuilding studio. Commissions for servers, creators and studios.":
-    "독립 마인크래프트 건축 · 월드빌딩 스튜디오. 서버, 크리에이터, 스튜디오를 위한 커미션을 진행합니다.",
+    "독립 마인크래프트 건축 · 월드빌딩 스튜디오.\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 서버, 크리에이터, 여러분을 위한 커미션을 진행합니다.",
   "EDITION / JAVA": "에디션 / 자바",
   "COMMISSIONS / OPEN": "커미션 / 가능",
   "NOT AFFILIATED WITH MOJANG OR MICROSOFT": "MOJANG 및 MICROSOFT와 무관합니다",
