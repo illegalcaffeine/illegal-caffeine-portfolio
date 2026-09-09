@@ -339,4 +339,13 @@ export const ko: Record<string, string> = {
     "식생은 따뜻한 가을색 한 계열로만 통일해, 밝은 돌이 또렷하게 읽히고 협곡의 깊이가 자연스럽게 사라져 갈 여지를 남겼습니다.",
   "Canyon settlement and windmill": "협곡의 정착지와 풍차",
   "Sculpted range nearby": "인접한 조형 산맥",
+
+  "Upload reference images": "레퍼런스 이미지 업로드",
+  "JPG, PNG or WebP · up to 5 images · 5 MB each · 15 MB total": "JPG, PNG 또는 WebP · 최대 5장 · 장당 5MB · 총 15MB",
+  "Remove image": "이미지 제거",
+  "You can upload up to 5 reference images.": "레퍼런스 이미지는 최대 5장까지 업로드할 수 있습니다.",
+  "Reference images must be JPG, PNG or WebP.": "레퍼런스 이미지는 JPG, PNG 또는 WebP 형식이어야 합니다.",
+  "Each reference image must be 5 MB or smaller.": "레퍼런스 이미지는 장당 5MB 이하여야 합니다.",
+  "Reference images must be 15 MB or smaller in total.": "레퍼런스 이미지의 총 용량은 15MB 이하여야 합니다.",
+  "Links, styles or builds you want it to feel like…": "원하는 분위기의 링크, 스타일 또는 건축물…",
 };

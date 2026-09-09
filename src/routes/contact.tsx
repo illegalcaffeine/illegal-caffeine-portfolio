@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { z } from "zod";
-import { ArrowRight, Check, Loader2 } from "lucide-react";
+import { ArrowRight, Check, ImagePlus, Loader2, X } from "lucide-react";
 
 import { supabase } from "@/integrations/supabase/client";
 import { sendInquiryEmail } from "@/lib/send-inquiry-email.functions";
@@ -80,6 +80,9 @@ function ContactPage() {
   const [errors, setErrors] = useState<FieldErrors>({});
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [formError, setFormError] = useState<string | null>(null);
+  const [referenceFiles, setReferenceFiles] = useState<File[]>([]);
+  const [referenceFileError, setReferenceFileError] = useState<string | null>(null);
+  const formStartedAt = useRef(Date.now());
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -99,6 +102,12 @@ function ContactPage() {
       return;
     }
 
+    if (referenceFileError) {
+      setFormError(referenceFileError);
+      setStatus("idle");
+      return;
+    }
+
     setErrors({});
     setFormError(null);
     setStatus("submitting");
@@ -114,6 +123,7 @@ function ContactPage() {
       description: [
         parsed.data.description,
         parsed.data.references ? `\n\nStyle / references:\n${parsed.data.references}` : "",
+        referenceFiles.length ? `\n\nReference images attached to notification email:\n${referenceFiles.map((file) => file.name).join(", ")}` : "",
         parsed.data.extras ? `\n\nExtra requests:\n${parsed.data.extras}` : "",
         "\n\nCommission terms accepted: yes",
       ].join(""),
@@ -128,6 +138,7 @@ function ContactPage() {
     }
 
     try {
+      const referenceImages = await Promise.all(referenceFiles.map(fileToEmailAttachment));
       await sendInquiryEmail({
         data: {
           name: parsed.data.name,
@@ -140,6 +151,9 @@ function ContactPage() {
           description: parsed.data.description,
           references: parsed.data.references || undefined,
           extras: parsed.data.extras || undefined,
+          referenceImages,
+          website: String(raw.website || ""),
+          formStartedAt: formStartedAt.current,
         },
       });
     } catch (emailError) {
@@ -149,6 +163,9 @@ function ContactPage() {
     }
 
     form.reset();
+    setReferenceFiles([]);
+    setReferenceFileError(null);
+    formStartedAt.current = Date.now();
     setStatus("success");
   }
 
@@ -224,6 +241,10 @@ function ContactPage() {
               </div>
             ) : (
               <form onSubmit={onSubmit} noValidate className="space-y-8">
+                <div className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
+                  <label htmlFor="website">Website</label>
+                  <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+                </div>
                 <div className="grid gap-8 md:grid-cols-2">
                   <Field label={t("Name")} name="name" error={errors.name} required />
                   <Field
@@ -287,13 +308,70 @@ function ContactPage() {
                     id="references"
                     name="references"
                     rows={4}
-                    placeholder={t("Links, screenshots, styles or builds you want it to feel like…")}
+                    placeholder={t("Links, styles or builds you want it to feel like…")}
                     className={cn(
                       "mt-3 w-full resize-y border bg-surface/50 px-4 py-3 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-foreground",
                       errors.references ? "border-destructive" : "border-border",
                     )}
                   />
                   <FieldError message={errors.references} />
+
+                  <div className="mt-5">
+                    <input
+                      id="reference_images"
+                      type="file"
+                      accept="image/jpeg,image/png,image/webp"
+                      multiple
+                      className="sr-only"
+                      onChange={(event) => {
+                        const incoming = Array.from(event.target.files || []);
+                        const next = [...referenceFiles, ...incoming];
+                        const error = validateReferenceFiles(next);
+                        if (error) {
+                          setReferenceFileError(t(error));
+                        } else {
+                          setReferenceFiles(next);
+                          setReferenceFileError(null);
+                        }
+                        event.currentTarget.value = "";
+                      }}
+                    />
+                    <label
+                      htmlFor="reference_images"
+                      className="label-mono inline-flex min-h-12 cursor-pointer items-center gap-3 border border-border-strong px-5 text-foreground transition-colors hover:bg-foreground hover:text-background"
+                    >
+                      <ImagePlus className="h-4 w-4" aria-hidden />
+                      {t("Upload reference images")}
+                    </label>
+                    <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+                      {t("JPG, PNG or WebP · up to 5 images · 5 MB each · 15 MB total")}
+                    </p>
+                    {referenceFileError && (
+                      <p className="label-mono mt-2 text-destructive">{referenceFileError}</p>
+                    )}
+                    {referenceFiles.length > 0 && (
+                      <div className="mt-4 grid gap-2 sm:grid-cols-2">
+                        {referenceFiles.map((file, index) => (
+                          <div key={`${file.name}-${file.size}-${index}`} className="flex min-w-0 items-center gap-3 border border-border px-3 py-3">
+                            <span className="min-w-0 flex-1 truncate text-xs text-muted-foreground">{file.name}</span>
+                            <span className="shrink-0 text-[10px] text-muted-foreground">{formatFileSize(file.size)}</span>
+                            <button
+                              type="button"
+                              aria-label={t("Remove image")}
+                              onClick={() => {
+                                const next = referenceFiles.filter((_, fileIndex) => fileIndex !== index);
+                                setReferenceFiles(next);
+                                setReferenceFileError(validateReferenceFiles(next));
+                              }}
+                              className="shrink-0 text-muted-foreground transition-colors hover:text-foreground"
+                            >
+                              <X className="h-4 w-4" aria-hidden />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 </div>
 
                 <div>
@@ -359,6 +437,38 @@ function ContactPage() {
       </section>
     </>
   );
+}
+
+const ALLOWED_REFERENCE_TYPES = new Set(["image/jpeg", "image/png", "image/webp"]);
+const MAX_REFERENCE_FILES = 5;
+const MAX_REFERENCE_FILE_SIZE = 5 * 1024 * 1024;
+const MAX_REFERENCE_TOTAL_SIZE = 15 * 1024 * 1024;
+
+function validateReferenceFiles(files: File[]) {
+  if (files.length > MAX_REFERENCE_FILES) return "You can upload up to 5 reference images.";
+  if (files.some((file) => !ALLOWED_REFERENCE_TYPES.has(file.type))) return "Reference images must be JPG, PNG or WebP.";
+  if (files.some((file) => file.size > MAX_REFERENCE_FILE_SIZE)) return "Each reference image must be 5 MB or smaller.";
+  if (files.reduce((sum, file) => sum + file.size, 0) > MAX_REFERENCE_TOTAL_SIZE) return "Reference images must be 15 MB or smaller in total.";
+  return null;
+}
+
+function formatFileSize(bytes: number) {
+  return `${(bytes / 1024 / 1024).toFixed(1)} MB`;
+}
+
+async function fileToEmailAttachment(file: File) {
+  const bytes = new Uint8Array(await file.arrayBuffer());
+  let binary = "";
+  const chunkSize = 0x8000;
+  for (let index = 0; index < bytes.length; index += chunkSize) {
+    binary += String.fromCharCode(...bytes.subarray(index, index + chunkSize));
+  }
+  return {
+    filename: file.name,
+    contentType: file.type as "image/jpeg" | "image/png" | "image/webp",
+    content: btoa(binary),
+    size: file.size,
+  };
 }
 
 function FieldLabel({
