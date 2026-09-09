@@ -26,7 +26,7 @@ export const ko: Record<string, string> = {
   "you just found": "안녕하세요",
   "the hidden gem": "illcaffeine입니다",
   "I build custom Minecraft architecture, environments and complete worlds on commission — for servers, creators and individuals that need a place, not a pile of blocks.":
-    "다년간의 수많은 해외 외주 경험을 바탕으로 서버, 크리에이터, 스튜디오를 위해 마인크래프트 건축과 환경, 그리고 하나의 완성된 월드를 제작합니다. 단순한 블록이 아닌, 유저의 시점에서 자연스럽고 편안한 장소를 만듭니다.",
+    "다년간의 수많은 해외 외주 경험을 바탕으로 서버, 크리에이터, 개인을 위해 마인크래프트 건축과 환경, 그리고 하나의 완성된 월드를 제작합니다. 단순한 블록이 아닌, 유저의 시점에서 자연스럽고 편안한 장소를 만듭니다.",
   Discipline: "분야",
   "BUILD / WORLDBUILD": "건축 / 월드빌딩",
   Edition: "에디션",
@@ -72,7 +72,7 @@ export const ko: Record<string, string> = {
   "Not just blocks.": "단순한 블록이 아닌,",
   "Places with identity.": "정체성이 있는 장소.",
   "Every commission starts with the same questions: where does the player stand, what do they see first, and what does this place tell them about the world it belongs to. Environment, silhouette and storytelling are handled as one problem — which is why the builds hold up in screenshots and in play.":
-    "모든 커미션은 같은 질문에서 시작합니다. 플레이어는 어디에 서 있고, 무엇을 가장 먼저 보게 되며, 이 장소는 자신이 속한 세계에 대해 무엇을 말하는가. 환경과 실루엣, 그리고 이야기를 하나의 문제로 엮어갑니다. 쉐이더 없이도 인게임에서 아름다운 건축을 추구합니다.",
+    "모든 커미션은 같은 질문에서 시작합니다. 플레이어는 어디에 서 있고, 무엇을 가장 먼저 보게 되며, 이 장소는 자신이 속한 세계에 대해 무엇을 말하는가. 환경과 실루엣, 그리고 이야기를 하나의 건축으로 엮어갑니다. 쉐이더 없이도 인게임에서 아름다운 건축을 추구합니다.",
 
   // final CTA
   "Have a world in mind?": "만들고 싶은 월드가 있으신가요?",
