@@ -28,16 +28,14 @@ export function ProjectPreview({
         layout === "full" && "aspect-4/3 md:aspect-21/9",
         layout === "wide" && "aspect-4/3 md:aspect-[2.6/1]",
         (layout === "offset-left" || layout === "offset-right") && "aspect-4/3 md:aspect-4/5",
+        "w-full h-full",
       )}
     >
       <img
         src={project.cover}
         alt={`${project.title} built in Minecraft`}
         loading={eager ? "eager" : "lazy"}
-        className={cn(
-          "absolute inset-0 h-full object-cover",
-          layout === "offset-right" ? "w-[90%]" : "w-full",
-        )}
+        className="absolute inset-0 h-full object-cover w-full"
       />
     </div>
   );
