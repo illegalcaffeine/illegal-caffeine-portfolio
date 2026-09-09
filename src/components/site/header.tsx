@@ -5,7 +5,7 @@ import { useLanguage } from "@/i18n";
 
 const nav = [
   { to: "/", label: "Index" },
-  { to: "/work", label: "Previous Works" },
+  { to: "/work", label: "archive" },
   { to: "/payment", label: "Payment" },
   { to: "/contact", label: "Contact" },
 ] as const;

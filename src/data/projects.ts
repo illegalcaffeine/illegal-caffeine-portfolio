@@ -55,7 +55,6 @@ export const projects: Project[] = [
   {
     slug: "imperial-capital",
     title: "Imperial Capital",
-    category: "\u00a0Fantasy City",
     filter: "fantasy",
     description: [
       "Imperial Capital was built as the first thing a player sees and the last thing they forget. The city climbs a carved massif in tiers, so every street reveals a new silhouette instead of a flat skyline.",

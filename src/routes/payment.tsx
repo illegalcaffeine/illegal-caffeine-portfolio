@@ -31,8 +31,11 @@ function PaymentPage() {
     <>
       <section className="border-b border-border px-5 pt-32 pb-10 md:px-10 md:pt-48 md:pb-14">
         <div className="mx-auto max-w-[1600px]">
-          <p className="label-mono">{t(paymentInfo.provider.toUpperCase())}</p>
-          <h1 className="display-xl mt-6">{t(paymentInfo.title)}</h1>
+          <p className="label-mono">
+            {"\u00a0"}
+            {t(paymentInfo.provider.toUpperCase())}
+          </p>
+          <h1 className="display-xl mt-6 !text-[60px]">{t(paymentInfo.title)}</h1>
         </div>
       </section>
 
