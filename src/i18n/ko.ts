@@ -124,9 +124,9 @@ export const ko: Record<string, string> = {
     "결제 정보는 작업 범위와 조건이 합의된 뒤에 안내드립니다.",
 
   // ------------------------------------------------------------------- contact
-  "COMMISSION / INQUIRY": "커미션 / 문의",
+  "COMMISSION / INQUIRY": " 커미션 문의",
   "Tell me what you want to exist. Briefs with references, scale and a rough deadline get the most useful reply.":
-    "만들고 싶은 것을 알려주세요. 레퍼런스와 규모, 대략적인 마감일이 담긴 문의일수록   더  정확한 답변을 드릴 수 있습니다.",
+    "만들고 싶은 것을 알려주세요. 레퍼런스와 규모, 대략적인 마감일이 담긴 문의일수록      더  정확한 답변을 드릴 수 있습니다.",
   Response: "답변",
   "Every inquiry is read and answered by email or Discord.":
     "모든 문의는 확인 후 이메일이나 디스코드로 답변 드립니다.",
