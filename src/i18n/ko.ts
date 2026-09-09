@@ -14,7 +14,6 @@ export const ko: Record<string, string> = {
   "Start a Project": "프로젝트 문의하기",
   "View Work": "작업 보기",
   "View all previous works": "최근 작업 전체 보기",
-  SCROLL: "스크롤",
   "Illegal Caffeine - Designer - — home": "Illegal Caffeine - Designer - — 홈",
   "Main": "주요 메뉴",
   Mobile: "모바일 메뉴",

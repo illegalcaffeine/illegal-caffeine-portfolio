@@ -198,7 +198,7 @@ function Hero() {
         </div>
 
         <div className="absolute right-5 bottom-16 hidden flex-col items-center gap-3 md:right-10 md:flex">
-          <span className="label-mono [writing-mode:vertical-rl]">{t("SCROLL")}</span>
+          <span className="label-mono [writing-mode:vertical-rl]">scroll</span>
           <span className="h-16 w-px bg-border-strong" />
         </div>
       </section>
@@ -363,9 +363,12 @@ function About() {
       <div className="mx-auto max-w-[1600px] px-5 py-20 md:px-10 md:py-32">
         <div className="grid gap-12 md:grid-cols-12 md:gap-16">
           <div className="md:col-span-6">
-            <p className="label-mono">{t("ABOUT")}</p>
+            <p className="label-mono leading-[16px]"></p>
             <RevealLines
               className="display-lg mt-6"
+              lineTextClassName={(index) =>
+                index === 0 ? "!text-[45px] !leading-[65px]" : "!text-[60px] !leading-[65px]"
+              }
               lines={[t("Not just blocks."), t("Places with identity.")]}
             />
             <Reveal delay={160} className="mt-8 max-w-lg space-y-5">
@@ -408,7 +411,9 @@ function FinalCta() {
       <div className="relative mx-auto max-w-[1600px] px-5 py-28 md:px-10 md:py-48">
         <RevealLines
           className="display-xl max-w-[16ch] [&>span:first-child]:![transform:translateY(-10px)] [&>span:first-child]:!translate-y-[10px] [&>span:first-child>span]:![transform:translateY(8px)]"
-          lineTextClassName="!text-[60px] !leading-[65.2px]"
+          lineTextClassName={(index) =>
+            index === 0 ? "!text-[60px] !leading-[65px]" : "!text-[60px] !leading-[80px]"
+          }
           lines={[t("Have a world in mind?"), t("Let's build it.")]}
         />
         <Reveal delay={160} className="mt-6 max-w-2xl">
