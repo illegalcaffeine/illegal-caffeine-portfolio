@@ -6,7 +6,6 @@ const ALLOWED_MIME_TYPES = new Set(["image/jpeg", "image/png", "image/webp"] as 
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
 const MAX_TOTAL_SIZE = 25 * 1024 * 1024;
 const MAX_REFERENCE_FILES = 5;
-const DOWNLOAD_URL_TTL_SECONDS = 10 * 60;
 const WINDOW_MS = 15 * 60 * 1000;
 const MAX_REQUESTS_PER_WINDOW = 5;
 
@@ -223,16 +222,42 @@ export async function deliverInquiryEmail(data: InquiryEmailPayload) {
   }
 
   const supabase = getServerSupabase();
-  const signedReferences: Array<InquiryReferenceFile & { signedUrl: string }> = [];
+  const emailAttachments: Array<{
+    filename: string;
+    content: string;
+    content_type: InquiryReferenceFile["contentType"];
+  }> = [];
 
   for (const file of data.referenceImages) {
-    const { data: signed, error } = await supabase.storage
+    const { data: downloaded, error } = await supabase.storage
       .from(REFERENCE_BUCKET)
-      .createSignedUrl(file.storagePath, DOWNLOAD_URL_TTL_SECONDS);
-    if (error || !signed?.signedUrl) {
-      throw new Error(`Unable to create attachment URL: ${error?.message || "unknown error"}`);
+      .download(file.storagePath);
+    if (error || !downloaded) {
+      throw new Error(`Unable to download attachment: ${error?.message || "unknown error"}`);
     }
-    signedReferences.push({ ...file, signedUrl: signed.signedUrl });
+
+    const bytes = new Uint8Array(await downloaded.arrayBuffer());
+    if (bytes.byteLength !== file.size) {
+      throw new Error("Downloaded reference image size mismatch");
+    }
+
+    let binary = "";
+    const chunkSize = 0x8000;
+    for (let offset = 0; offset < bytes.length; offset += chunkSize) {
+      binary += String.fromCharCode(...bytes.subarray(offset, offset + chunkSize));
+    }
+
+    emailAttachments.push({
+      filename: file.filename,
+      content: btoa(binary),
+      content_type: file.contentType,
+    });
+  }
+
+  if (emailAttachments.length) {
+    console.info(
+      `[contact] reference images downloaded for Resend: ${data.submissionId}; count=${emailAttachments.length}`,
+    );
   }
 
   const text = [
@@ -245,7 +270,7 @@ export async function deliverInquiryEmail(data: InquiryEmailPayload) {
     `Build scale: ${clean(data.build_scale)}`,
     `Budget: ${clean(data.budget_range)}`,
     `Desired deadline: ${clean(data.deadline)}`,
-    `Reference images: ${signedReferences.length ? signedReferences.map((file) => file.filename).join(", ") : "None"}`,
+    `Reference images: ${emailAttachments.length ? emailAttachments.map((file) => file.filename).join(", ") : "None"}`,
     "",
     "Project description:",
     data.description,
@@ -274,10 +299,7 @@ export async function deliverInquiryEmail(data: InquiryEmailPayload) {
       reply_to: data.email,
       subject: `New Project Inquiry — ${data.name} — ${data.project_type}`,
       text,
-      attachments: signedReferences.map((file) => ({
-        filename: file.filename,
-        path: file.signedUrl,
-      })),
+      attachments: emailAttachments,
     }),
   });
 
