@@ -371,11 +371,6 @@ function About() {
             <Reveal delay={160} className="mt-8 max-w-lg space-y-5">
               <p className="body-lg">
                 {t(
-                  "I treat Minecraft building as Art. Composition, scale and atmosphere come before decoration.",
-                )}
-              </p>
-              <p className="body-lg">
-                {t(
                   "Every commission starts with the same questions: where does the player stand, what do they see first, and what does this place tell them about the world it belongs to. Environment, silhouette and storytelling are handled as one problem — which is why the builds hold up in screenshots and in play.",
                 )}
               </p>
@@ -412,7 +407,8 @@ function FinalCta() {
       <div className="absolute inset-0 bg-linear-to-b from-background/70 via-background/80 to-background" />
       <div className="relative mx-auto max-w-[1600px] px-5 py-28 md:px-10 md:py-48">
         <RevealLines
-          className="display-xl max-w-[16ch]"
+          className="display-xl max-w-[16ch] [&>span:first-child]:![transform:translateY(-10px)] [&>span:first-child]:!translate-y-[10px] [&>span:first-child>span]:![transform:translateY(8px)]"
+          lineTextClassName="!text-[60px] !leading-[65.2px]"
           lines={[t("Have a world in mind?"), t("Let's build it.")]}
         />
         <Reveal delay={160} className="mt-6 max-w-2xl">
