@@ -158,6 +158,8 @@ export const ko: Record<string, string> = {
   "Please fix the highlighted fields.": "표시된 항목을 확인해 주세요.",
   "The inquiry couldn't be saved. Please try again in a moment.":
     "문의를 저장하지 못했습니다. 잠시 후 다시 시도해 주세요.",
+  "Your inquiry was saved, but the email notification could not be sent. Please contact me directly by email or Discord.":
+    "문의는 저장되었지만 이메일 알림을 전송하지 못했습니다. 이메일 또는 Discord로 직접 연락해 주세요.",
   "Please enter your name": "이름을 입력해 주세요",
   "Enter a valid email address": "올바른 이메일 주소를 입력해 주세요",
   "Select a project type": "프로젝트 유형을 선택해 주세요",

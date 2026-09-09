@@ -155,22 +155,6 @@ async function verifyStoredReferences(uploadSessionId: string, files: InquiryRef
   }
 }
 
-async function enforceDatabaseRateLimit(email: string) {
-  const supabase = getServerSupabase();
-  const since = new Date(Date.now() - WINDOW_MS).toISOString();
-  const { count, error } = await supabase
-    .from("commission_inquiries")
-    .select("id", { count: "exact", head: true })
-    .eq("email", email)
-    .gte("created_at", since);
-
-  if (error) throw new Error(`Unable to verify inquiry record: ${error.message}`);
-  if (!count) throw new Error("Inquiry record not found");
-  if (count > MAX_REQUESTS_PER_WINDOW) {
-    throw new Error("Too many inquiries. Please try again later.");
-  }
-}
-
 export async function prepareInquiryUploads(data: PrepareUploadsPayload) {
   enforceTimingAndHoneypot(data.website, data.formStartedAt);
   enforceMemoryRateLimit(uploadRequestLog, 10);
@@ -222,13 +206,14 @@ export async function cleanupInquiryUploads(uploadSessionId: string) {
 }
 
 export async function deliverInquiryEmail(data: InquiryEmailPayload) {
+  console.info(`[contact] inquiry email starting: ${data.submissionId}; attachments=${data.referenceImages.length}`);
   enforceTimingAndHoneypot(data.website, data.formStartedAt);
   enforceMemoryRateLimit(requestLog, MAX_REQUESTS_PER_WINDOW);
-  await enforceDatabaseRateLimit(data.email);
 
   if (data.referenceImages.length) {
     if (!data.uploadSessionId) throw new Error("Upload session is required");
     await verifyStoredReferences(data.uploadSessionId, data.referenceImages);
+    console.info(`[contact] reference images verified: ${data.submissionId}; count=${data.referenceImages.length}`);
   }
 
   const apiKey = process.env["RESEND_API_KEY"];
@@ -274,6 +259,8 @@ export async function deliverInquiryEmail(data: InquiryEmailPayload) {
     "Commission terms accepted: yes",
   ].join("\n");
 
+  console.info(`[contact] sending inquiry to Resend: ${data.submissionId}`);
+
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
@@ -299,6 +286,13 @@ export async function deliverInquiryEmail(data: InquiryEmailPayload) {
     console.error(`[contact] Resend failed (${response.status}): ${detail}`);
     throw new Error("Email notification failed");
   }
+
+  const responseBody = await response.json().catch(() => null);
+  const resendId =
+    responseBody && typeof responseBody === "object" && "id" in responseBody
+      ? String(responseBody.id)
+      : "unknown";
+  console.info(`[contact] Resend accepted: ${data.submissionId}; id=${resendId}`);
 
   if (data.uploadSessionId) {
     await cleanupInquiryUploads(data.uploadSessionId).catch((cleanupError) => {

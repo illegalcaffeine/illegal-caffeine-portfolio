@@ -221,6 +221,13 @@ function ContactPage() {
       console.error(emailError);
       // The inquiry is already stored in Supabase. Keep uploaded reference files
       // when notification delivery fails so the submission can still be recovered.
+      setStatus("error");
+      setFormError(
+        t(
+          "Your inquiry was saved, but the email notification could not be sent. Please contact me directly by email or Discord.",
+        ),
+      );
+      return;
     }
 
     form.reset();
