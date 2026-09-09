@@ -220,7 +220,7 @@ function Intro() {
         <Reveal className="md:col-span-5 md:pt-4" delay={200}>
           <p className="body-lg">
             {t(
-              "I build custom Minecraft architecture, environments and complete worlds on commission — for servers, creators and studios that need a place, not a pile of blocks.",
+              "I build custom Minecraft architecture, environments and complete worlds on commission — for servers, creators and individuals that need a place, not a pile of blocks.",
             )}
           </p>
           <dl className="mt-10 grid grid-cols-2 gap-y-4 border-t border-border pt-6">

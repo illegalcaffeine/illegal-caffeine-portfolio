@@ -25,7 +25,7 @@ export const ko: Record<string, string> = {
   "Minecraft Builds · Worlds · Commissions": "마인크래프트 건축 · 월드 · 커미션",
   "you just found": "안녕하세요",
   "the hidden gem": "illcaffeine입니다",
-  "I build custom Minecraft architecture, environments and complete worlds on commission — for servers, creators and studios that need a place, not a pile of blocks.":
+  "I build custom Minecraft architecture, environments and complete worlds on commission — for servers, creators and individuals that need a place, not a pile of blocks.":
     "다년간의 수많은 해외 외주 경험을 바탕으로 서버, 크리에이터, 스튜디오를 위해 마인크래프트 건축과 환경, 그리고 하나의 완성된 월드를 제작합니다. 단순한 블록이 아닌, 유저의 시점에서 자연스럽고 편안한 장소를 만듭니다.",
   Discipline: "분야",
   "BUILD / WORLDBUILD": "건축 / 월드빌딩",
