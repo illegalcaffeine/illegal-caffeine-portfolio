@@ -117,27 +117,29 @@ function normalizeRow(row: Record<string, unknown>): CmsProjectRow {
 }
 
 export function rowToDisplayProject(row: CmsProjectRow): DisplayProject {
+  const gallery = row.gallery.map((item) => ({
+    src: item.url,
+    caption: item.caption_en,
+    ...(item.caption_ko ? { captionKo: item.caption_ko } : {}),
+  }));
+
   return {
     slug: row.slug,
     title: row.title,
-    category: row.category_en || undefined,
-    categoryKo: row.category_ko || undefined,
     filter: row.filter,
     description: row.description_en,
-    descriptionKo: row.description_ko,
     cover: row.cover_url,
-    gallery: row.gallery.map((item) => ({
-      src: item.url,
-      caption: item.caption_en,
-      captionKo: item.caption_ko || undefined,
-    })),
-    awardEn: row.award_en || undefined,
-    awardKo: row.award_ko || undefined,
+    gallery,
+    ...(row.category_en ? { category: row.category_en } : {}),
+    ...(row.category_ko ? { categoryKo: row.category_ko } : {}),
+    ...(row.description_ko.length ? { descriptionKo: row.description_ko } : {}),
+    ...(row.award_en ? { awardEn: row.award_en } : {}),
+    ...(row.award_ko ? { awardKo: row.award_ko } : {}),
   };
 }
 
 function staticFallback(): DisplayProject[] {
-  return staticProjects.map((project, index) => rowToDisplayProject({ id: `static-${index}`, ...portfolioSeedRows[index]! }));
+  return staticProjects.map((_, index) => rowToDisplayProject({ id: `static-${index}`, ...portfolioSeedRows[index]! }));
 }
 
 export async function fetchPublishedPortfolioProjects(): Promise<DisplayProject[]> {
