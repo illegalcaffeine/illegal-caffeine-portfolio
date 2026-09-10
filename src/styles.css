@@ -216,18 +216,28 @@
   &[data-visible="true"] > span { transform: none; }
 }
 
-/* Mobile and tablet: replace the desktop hero's large manual offsets with a
-   fluid document flow. This keeps the same visual hierarchy without overlap. */
+/* Tablet and smaller: abandon the desktop hero's manual offsets and use a
+   real stacked composition so every element owns its own vertical space. */
 @media (max-width: 63.999rem) {
   #hero {
-    min-height: 100svh;
-    align-items: center;
-    padding-top: 5rem;
+    min-height: max(100svh, 56rem);
+    align-items: stretch;
+    padding-top: 4rem;
+  }
+
+  #hero > .absolute > img {
+    object-position: 50% 35%;
   }
 
   #hero > .relative {
-    padding-top: clamp(2rem, 7vh, 5rem);
-    padding-bottom: clamp(2rem, 6vh, 4rem);
+    display: flex;
+    min-height: calc(max(100svh, 56rem) - 4rem);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: clamp(4rem, 9vh, 7rem);
+    padding-bottom: clamp(3rem, 7vh, 5rem);
+    text-align: center;
   }
 
   #hero .display-md,
@@ -237,10 +247,59 @@
     transform: none !important;
   }
 
-  #hero .display-md { max-width: 18ch; }
-  #hero .body-lg { margin-top: 1rem !important; max-width: 32rem; }
-  #hero .mt-10.flex { margin-top: 1.75rem !important; }
-  #hero .mt-12.flex.flex-col.items-center { margin-top: 2rem !important; }
+  #hero .mt-12.flex.flex-col.items-center {
+    order: 1;
+    width: 100%;
+    margin-top: 0 !important;
+    align-items: center;
+    text-align: center;
+  }
+
+  #hero .mt-12.flex.flex-col.items-center > div:first-child {
+    width: clamp(7.25rem, 18vw, 9rem);
+    height: clamp(7.25rem, 18vw, 9rem);
+  }
+
+  #hero .mt-12.flex.flex-col.items-center > div:last-child {
+    margin-top: 1.25rem;
+    text-align: center;
+  }
+
+  #hero .mt-12.flex.flex-col.items-center .label-mono {
+    line-height: 1.6;
+  }
+
+  #hero .body-lg {
+    order: 2;
+    width: 100%;
+    max-width: 34rem;
+    margin-top: 2rem !important;
+    text-align: center;
+  }
+
+  #hero .display-md {
+    order: 3;
+    width: 100%;
+    max-width: 20ch;
+    margin-top: 1.35rem !important;
+    text-align: center;
+    color: var(--color-foreground);
+  }
+
+  #hero .display-md .line-rise > span {
+    transform: none !important;
+  }
+
+  #hero .mt-10.flex {
+    order: 4;
+    width: min(100%, 38rem);
+    margin-top: 2.25rem !important;
+  }
+
+  #hero .mt-10.flex > a {
+    flex: 1 1 0;
+    min-height: 3.5rem;
+  }
 
   #about .display-lg > .line-rise > span,
   #start-a-project .display-xl > .line-rise > span {
@@ -265,10 +324,56 @@
     line-height: 1 !important;
   }
 
-  #hero > .relative { padding-left: 1rem; padding-right: 1rem; }
-  #hero .mt-10.flex > a { width: 100%; min-height: 3.25rem; }
-  #hero .mt-12.flex.flex-col.items-center { align-items: flex-start; text-align: left; }
-  #hero .mt-12.flex.flex-col.items-center > div:last-child { text-align: left; }
+  #hero {
+    min-height: max(100svh, 58rem);
+  }
+
+  #hero > .relative {
+    min-height: calc(max(100svh, 58rem) - 4rem);
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: clamp(5.5rem, 13vh, 8rem);
+    padding-bottom: 3.25rem;
+  }
+
+  #hero .mt-12.flex.flex-col.items-center > div:first-child {
+    width: clamp(7.5rem, 32vw, 9rem);
+    height: clamp(7.5rem, 32vw, 9rem);
+  }
+
+  #hero .mt-12.flex.flex-col.items-center > div:last-child {
+    width: 100%;
+    max-width: 24rem;
+  }
+
+  #hero .mt-12.flex.flex-col.items-center .label-mono {
+    font-size: 0.64rem;
+    letter-spacing: 0.14em;
+    overflow-wrap: anywhere;
+  }
+
+  #hero .body-lg {
+    max-width: 22rem;
+    margin-top: 1.75rem !important;
+  }
+
+  #hero .display-md {
+    max-width: 12ch;
+    margin-top: 1.2rem !important;
+    font-size: clamp(2rem, 10vw, 3rem);
+    line-height: 0.96;
+  }
+
+  #hero .mt-10.flex {
+    flex-direction: column;
+    width: min(100%, 34rem);
+    margin-top: 2rem !important;
+  }
+
+  #hero .mt-10.flex > a {
+    width: 100%;
+    min-height: 3.5rem;
+  }
 
   #studio,
   #selected-work,
@@ -287,7 +392,14 @@
 
 @media (max-width: 23rem) {
   .label-mono { letter-spacing: 0.12em; }
-  #hero > .relative { padding-left: 0.875rem; padding-right: 0.875rem; }
+  #hero > .relative {
+    padding-left: 0.875rem;
+    padding-right: 0.875rem;
+  }
+  #hero .mt-12.flex.flex-col.items-center .label-mono {
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
