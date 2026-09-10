@@ -3,17 +3,18 @@ import {
   cloneElement,
   type ImgHTMLAttributes,
   type ReactElement,
-  type ReactNode,
   type SyntheticEvent,
   useState,
 } from "react";
 
 import { workFilters, type ProjectFilter } from "@/data/projects";
+import { fetchPublishedPortfolioProjects, type DisplayProject } from "@/data/portfolio-cms";
 import { Reveal } from "@/components/site/reveal";
 import { cn } from "@/lib/utils";
 import { useT } from "@/i18n";
 
 export const Route = createFileRoute("/work/")({
+  loader: () => fetchPublishedPortfolioProjects(),
   head: () => ({
     meta: [
       { title: "Previous Works — Illegal Caffeine - Designer -" },
@@ -34,31 +35,31 @@ export const Route = createFileRoute("/work/")({
 
 type ActiveFilter = "all" | ProjectFilter;
 
-type ArchiveCategoryProps = {
-  active: ActiveFilter;
-  category: ProjectFilter;
-  children: ReactNode;
-};
-
-function ArchiveCategory({ active, category, children }: ArchiveCategoryProps) {
-  if (active !== "all" && active !== category) return null;
-  return <>{children}</>;
-}
-
 type ArchiveTileProps = {
-  slug: string;
-  title: string;
+  project: DisplayProject;
   weight?: number;
   eager?: boolean;
   children: ReactElement<ImgHTMLAttributes<HTMLImageElement>>;
 };
 
-function ArchiveTile({ slug, title, weight = 1, children }: ArchiveTileProps) {
+const archiveWeights: Record<string, number> = {
+  "blossom-cathedral": 1.9,
+  "grand-central": 0.78,
+  "imperial-capital": 1.5,
+  "raven-colossus": 0.78,
+  "glass-arcana": 1.5,
+  "gothic-massif": 0.78,
+  "white-range": 1.5,
+  "autumn-canyon": 0.78,
+  "streamer-servers": 1.9,
+};
+
+function ArchiveTile({ project, weight = 1, children }: ArchiveTileProps) {
   const [ratio, setRatio] = useState(3 / 2);
   const basis = ratio * weight * 240;
 
   const image = cloneElement(children, {
-    alt: children.props.alt || `${title} built in Minecraft`,
+    alt: children.props.alt || `${project.title} built in Minecraft`,
     loading: "eager",
     onLoad: (event: SyntheticEvent<HTMLImageElement>) => {
       children.props.onLoad?.(event);
@@ -74,14 +75,14 @@ function ArchiveTile({ slug, title, weight = 1, children }: ArchiveTileProps) {
   return (
     <Link
       to="/work/$slug"
-      params={{ slug }}
-      aria-label={title}
+      params={{ slug: project.slug }}
+      aria-label={project.title}
       style={{ flexGrow: ratio * weight, flexBasis: `${basis}px` }}
       className="group animate-fade-in relative block min-h-[220px] w-full min-w-0 overflow-hidden bg-surface sm:min-w-[45%] md:min-w-[220px]"
     >
       {image}
       <span className="pointer-events-none absolute inset-x-0 bottom-0 bg-linear-to-t from-background/85 to-transparent p-3 opacity-100 transition-opacity duration-500 md:opacity-0 md:group-hover:opacity-100">
-        <span className="label-mono text-foreground">{title}</span>
+        <span className="label-mono text-foreground">{project.title}</span>
       </span>
     </Link>
   );
@@ -89,7 +90,9 @@ function ArchiveTile({ slug, title, weight = 1, children }: ArchiveTileProps) {
 
 function WorkPage() {
   const t = useT();
+  const projects = Route.useLoaderData();
   const [filter, setFilter] = useState<ActiveFilter>("all");
+  const visibleProjects = filter === "all" ? projects : projects.filter((project) => project.filter === filter);
 
   return (
     <>
@@ -128,63 +131,20 @@ function WorkPage() {
       </section>
 
       <section className="mx-auto max-w-[1600px] px-5 py-5 sm:px-6 md:px-10 md:py-8">
-        <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:gap-1">
-          <ArchiveCategory active={filter} category="spawns">
-            <ArchiveTile slug="blossom-cathedral" title="Blossom Cathedral" weight={1.9} eager>
-              <img src="/work/blossom-cathedral.png" />
-            </ArchiveTile>
-          </ArchiveCategory>
-
-          <ArchiveCategory active={filter} category="cities">
-            <ArchiveTile slug="grand-central" title="SPECIAL EFFECTS" weight={0.78}>
-              <img src="/work/void-terrain.png" />
-            </ArchiveTile>
-          </ArchiveCategory>
-
-          <ArchiveCategory active={filter} category="fantasy">
-            <ArchiveTile slug="imperial-capital" title="Imperial Capital" weight={1.5} eager>
-              <img src="/work/imperial-capital.png" />
-            </ArchiveTile>
-            <ArchiveTile slug="celestial-palace" title="ORGANIC BUILDS">
-              <img src="/work/celestial-effigy.jpg" />
-            </ArchiveTile>
-            <ArchiveTile slug="raven-colossus" title="Raven Colossus" weight={0.78}>
-              <img src="/work/raven-colossus.png" />
-            </ArchiveTile>
-            <ArchiveTile slug="creature-maw" title="Naga">
-              <img src="/work/creature-maw.png" />
-            </ArchiveTile>
-            <ArchiveTile slug="glass-arcana" title="Water Arcana" weight={1.5}>
-              <img src="/work/glass-arcana.png" />
-            </ArchiveTile>
-            <ArchiveTile slug="goblin-village" title="Goblin Village">
-              <img src="/work/cloud-pavilion.png" />
-            </ArchiveTile>
-            <ArchiveTile slug="gothic-massif" title="Gothic Massif" weight={0.78}>
-              <img src="/work/gothic-massif.png" />
-            </ArchiveTile>
-            <ArchiveTile slug="craken-harbor" title="Kraken Harbor">
-              <img src="/work/leviathan-harbour.png" />
-            </ArchiveTile>
-          </ArchiveCategory>
-
-          <ArchiveCategory active={filter} category="terrain">
-            <ArchiveTile slug="white-range" title="White Range" weight={1.5}>
-              <img src="/work/white-range.png" />
-            </ArchiveTile>
-            <ArchiveTile slug="autumn-canyon" title="Autumn Canyon" weight={0.78}>
-              <img src="/work/autumn-canyon.png" />
-            </ArchiveTile>
-          </ArchiveCategory>
-
-          <ArchiveCategory active={filter} category="commissions">
-            <ArchiveTile slug="streamer-servers" title="Streamer Server World" weight={1.9} eager>
-              <img src="/work/streamer-servers.png" />
-            </ArchiveTile>
-          </ArchiveCategory>
-        </div>
-
-        {false && (
+        {visibleProjects.length > 0 ? (
+          <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:gap-1">
+            {visibleProjects.map((project, index) => (
+              <ArchiveTile
+                key={project.slug}
+                project={project}
+                weight={archiveWeights[project.slug] ?? 1}
+                eager={index < 3}
+              >
+                <img src={project.cover} />
+              </ArchiveTile>
+            ))}
+          </div>
+        ) : (
           <Reveal className="border border-border p-10 text-center">
             <p className="label-mono">{t("NO PROJECTS IN THIS CATEGORY YET")}</p>
           </Reveal>
