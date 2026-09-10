@@ -34,16 +34,10 @@ function NotFoundComponent() {
             : "The requested page does not exist. Return to the index or continue through the archive."}
         </p>
         <div className="mt-10 flex flex-wrap gap-3">
-          <Link
-            to="/"
-            className="label-mono inline-flex min-h-12 items-center border border-border-strong bg-foreground px-6 text-background transition-opacity hover:opacity-85"
-          >
+          <Link to="/" className="label-mono inline-flex min-h-12 items-center border border-border-strong bg-foreground px-6 text-background transition-opacity hover:opacity-85">
             {lang === "ko" ? "인덱스로 돌아가기" : "RETURN TO INDEX"}
           </Link>
-          <Link
-            to="/work"
-            className="label-mono inline-flex min-h-12 items-center border border-border-strong px-6 text-foreground transition-colors hover:bg-foreground hover:text-background"
-          >
+          <Link to="/work" className="label-mono inline-flex min-h-12 items-center border border-border-strong px-6 text-foreground transition-colors hover:bg-foreground hover:text-background">
             {lang === "ko" ? "아카이브 보기" : "VIEW ARCHIVE"}
           </Link>
         </div>
@@ -65,21 +59,10 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
         <p className="label-mono">ERROR / RENDER</p>
         <h1 className="display-md mt-6">This page didn't load.</h1>
         <div className="mt-8 flex flex-wrap justify-center gap-2">
-          <button
-            onClick={() => {
-              router.invalidate();
-              reset();
-            }}
-            className="label-mono inline-flex min-h-12 items-center border border-border-strong px-6 text-foreground transition-colors hover:bg-foreground hover:text-background"
-          >
+          <button onClick={() => { router.invalidate(); reset(); }} className="label-mono inline-flex min-h-12 items-center border border-border-strong px-6 text-foreground transition-colors hover:bg-foreground hover:text-background">
             Try again
           </button>
-          <a
-            href="/"
-            className="label-mono inline-flex min-h-12 items-center border border-border px-6 text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Go home
-          </a>
+          <a href="/" className="label-mono inline-flex min-h-12 items-center border border-border px-6 text-muted-foreground transition-colors hover:text-foreground">Go home</a>
         </div>
       </div>
     </div>
@@ -99,11 +82,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap",
-      },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" },
+      { rel: "icon", href: "/illegalcaffeine-logo.png", type: "image/png" },
+      { rel: "apple-touch-icon", href: "/illegalcaffeine-logo.png" },
     ],
   }),
   shellComponent: RootShell,
@@ -115,28 +96,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        {children}
-        <Scripts />
-      </body>
+      <head><HeadContent /></head>
+      <body>{children}<Scripts /></body>
     </html>
   );
 }
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-
   return (
     <QueryClientProvider client={queryClient}>
       <LanguageProvider>
         <LanguageGate />
         <SiteHeader />
-        <main>
-          <Outlet />
-        </main>
+        <main><Outlet /></main>
         <SiteExtras />
         <SiteFooter />
         <Toaster />
