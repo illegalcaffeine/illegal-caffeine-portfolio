@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
-import type { Project } from "@/data/projects";
+import type { DisplayProject } from "@/data/portfolio-cms";
 import { Reveal } from "@/components/site/reveal";
 import { Parallax } from "@/components/site/parallax";
 import { cn } from "@/lib/utils";
@@ -12,21 +12,19 @@ export function ProjectPreview({
   eager = false,
   imageOverride,
 }: {
-  project: Project;
+  project: DisplayProject;
   layout?: "full" | "offset-left" | "offset-right" | "wide";
   eager?: boolean;
   imageOverride?: string;
 }) {
   const t = useT();
   const { lang } = useLanguage();
-  const isOrganicBuilds = project.slug === "celestial-palace";
-  const organicDescriptionKo =
-    "순수미술과 입체 조형을 기반으로, 생물부터 복잡한 자연 구조까지 유기적이고 조각적인 형태를 마인크래프트로 옮기는 작업을 전문으로 합니다.";
+  const category = lang === "ko" ? project.categoryKo || (project.category ? t(project.category) : "") : project.category || "";
   const description =
-    isOrganicBuilds && lang === "ko"
-      ? organicDescriptionKo
-      : t(project.description[0] ?? "");
-  const awardLabel = lang === "ko" ? "2025 KIBO COMPETITION 수상작" : "AWARDED — 2025 KIBO COMPETITION";
+    lang === "ko"
+      ? project.descriptionKo?.[0] || t(project.description[0] ?? "")
+      : project.description[0] ?? "";
+  const awardLabel = lang === "ko" ? project.awardKo : project.awardEn;
 
   const image = (
     <div
@@ -47,7 +45,7 @@ export function ProjectPreview({
     </div>
   );
 
-  const award = isOrganicBuilds ? (
+  const award = awardLabel ? (
     <p className="mt-3 text-right text-[11px] font-medium tracking-[0.12em] text-muted-foreground uppercase sm:text-xs">
       {awardLabel}
     </p>
@@ -63,7 +61,7 @@ export function ProjectPreview({
       )}
     >
       <div className="min-w-0">
-        {project.category && <p className="label-mono">{t(project.category)}</p>}
+        {category && <p className="label-mono">{category}</p>}
         <h3 className="display-lg mt-3 flex max-w-full items-start gap-2 break-words !text-[clamp(2rem,10vw,4rem)] md:gap-3 md:!text-[clamp(2rem,5.6vw,5rem)]">
           {project.title}
           <ArrowUpRight
