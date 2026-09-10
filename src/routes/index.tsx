@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { useState } from "react";
 
-import { featuredProjects } from "@/data/projects";
+import { fetchPublishedPortfolioProjects, type DisplayProject } from "@/data/portfolio-cms";
 import { ProjectPreview } from "@/components/site/project-preview";
 import { Reveal, RevealLines } from "@/components/site/reveal";
 import { Parallax } from "@/components/site/parallax";
@@ -18,10 +18,10 @@ import disciplineFantasy from "@/assets/local/imperial-capital.png";
 import disciplineTerrain from "@/assets/local/white-range.png";
 import streamerServers from "@/assets/local/streamer-servers.png";
 import profileImage from "@/assets/local/profile.png";
-import organicBuildsPreview from "@/assets/local/organic-builds-preview.png";
 import aboutOrganicBuild from "@/assets/local/about-organic-build.png";
 
 export const Route = createFileRoute("/")({
+  loader: () => fetchPublishedPortfolioProjects(),
   head: () => ({
     meta: [
       { title: "Illegal Caffeine - Designer - — Minecraft Building & Worldbuilding" },
@@ -72,13 +72,14 @@ const sectionNavItems: SectionNavItem[] = [
 
 function HomePage() {
   const t = useT();
+  const projects = Route.useLoaderData();
   const navItems = sectionNavItems.map((item) => ({ ...item, label: t(item.label) }));
   return (
     <>
       <SectionNav items={navItems} />
       <Hero />
       <Intro />
-      <SelectedWork />
+      <SelectedWork projects={projects} />
       <WhatWeBuild />
       <BuildCycle />
       <About />
@@ -233,9 +234,9 @@ function Intro() {
   );
 }
 
-function SelectedWork() {
+function SelectedWork({ projects }: { projects: DisplayProject[] }) {
   const t = useT();
-  const [first, second, third] = featuredProjects;
+  const [first, second, third] = projects;
   return (
     <section id="selected-work" className="scroll-mt-20 border-t border-border">
       <div className="mx-auto max-w-[1600px] px-5 md:px-10">
@@ -244,7 +245,7 @@ function SelectedWork() {
         </div>
         <div className="flex flex-col gap-20 pb-20 md:gap-28 md:pb-28">
           {first && <ProjectPreview project={first} layout="full" eager />}
-          {second && <ProjectPreview project={second} layout="offset-right" imageOverride={organicBuildsPreview} />}
+          {second && <ProjectPreview project={second} layout="offset-right" />}
           {third && <ProjectPreview project={third} layout="wide" />}
         </div>
         <div className="border-t border-border py-10 md:py-14">
