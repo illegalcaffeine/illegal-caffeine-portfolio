@@ -80,6 +80,7 @@
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+    overflow-x: clip;
   }
 
   body {
@@ -88,16 +89,19 @@
     font-family: var(--font-sans);
     font-synthesis-weight: none;
     -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
   }
+
+  img, video, svg { max-width: 100%; }
 
   ::selection {
     background: var(--color-foreground);
     color: var(--color-background);
   }
 
-  input[type="date"] {
-    color-scheme: dark;
-  }
+  input, select, textarea, button { max-width: 100%; }
+
+  input[type="date"] { color-scheme: dark; }
 
   input[type="date"]::-webkit-calendar-picker-indicator {
     width: 1rem;
@@ -111,19 +115,12 @@
     background-size: 1rem 1rem;
   }
 
-  /* Hero uses large translated text blocks. Keep those decorative/visual layers
-     out of hit-testing so they cannot sit over the CTA buttons. */
   #hero > .absolute,
   #hero .display-md,
   #hero .body-lg,
-  #hero .mt-12.flex.flex-col.items-center {
-    pointer-events: none;
-  }
+  #hero .mt-12.flex.flex-col.items-center { pointer-events: none; }
 
-  #hero > .relative {
-    position: relative;
-    z-index: 10;
-  }
+  #hero > .relative { position: relative; z-index: 10; }
 
   #hero a[href="#selected-work"],
   #hero a[href="/contact"] {
@@ -187,74 +184,84 @@
 @utility reveal {
   opacity: 0;
   transform: translateY(28px);
-  transition:
-    opacity 900ms cubic-bezier(0.16, 1, 0.3, 1),
-    transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 900ms cubic-bezier(0.16, 1, 0.3, 1), transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
-
-  &[data-visible="true"] {
-    opacity: 1;
-    transform: none;
-  }
+  &[data-visible="true"] { opacity: 1; transform: none; }
 }
 
 @utility reveal-mask {
   clip-path: inset(0 0 100% 0);
   transition: clip-path 1200ms cubic-bezier(0.16, 1, 0.3, 1);
-
   &[data-visible="true"] { clip-path: inset(0 0 0 0); }
 }
 
 @utility zoom-frame {
   overflow: hidden;
-
   & > img { transition: transform 1200ms cubic-bezier(0.16, 1, 0.3, 1); }
   &:hover > img { transform: scale(1.045); }
 }
 
 @utility hairline-grid {
-  background-image:
-    linear-gradient(to right, var(--color-border) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--color-border) 1px, transparent 1px);
+  background-image: linear-gradient(to right, var(--color-border) 1px, transparent 1px), linear-gradient(to bottom, var(--color-border) 1px, transparent 1px);
   background-size: 25% 100%;
 }
 
-@utility hero-scale {
-  animation: hero-scale-in 2400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes hero-scale-in {
-  from { transform: scale(1.06); }
-  to { transform: scale(1); }
-}
+@utility hero-scale { animation: hero-scale-in 2400ms cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+@keyframes hero-scale-in { from { transform: scale(1.06); } to { transform: scale(1); } }
 
 @utility line-rise {
   display: block;
   overflow: hidden;
+  & > span { display: block; transform: translateY(105%); transition: transform 1100ms cubic-bezier(0.16, 1, 0.3, 1); }
+  &[data-visible="true"] > span { transform: none; }
+}
 
-  & > span {
-    display: block;
-    transform: translateY(105%);
-    transition: transform 1100ms cubic-bezier(0.16, 1, 0.3, 1);
+/* Mobile and tablet: replace the desktop hero's large manual offsets with a
+   fluid document flow. This keeps the same visual hierarchy without overlap. */
+@media (max-width: 63.999rem) {
+  #hero {
+    min-height: 100svh;
+    align-items: center;
+    padding-top: 5rem;
   }
 
-  &[data-visible="true"] > span { transform: none; }
+  #hero > .relative {
+    padding-top: clamp(2rem, 7vh, 5rem);
+    padding-bottom: clamp(2rem, 6vh, 4rem);
+  }
+
+  #hero .display-md,
+  #hero .body-lg,
+  #hero .mt-10.flex,
+  #hero .mt-12.flex.flex-col.items-center {
+    transform: none !important;
+  }
+
+  #hero .display-md { max-width: 18ch; }
+  #hero .body-lg { margin-top: 1rem !important; max-width: 32rem; }
+  #hero .mt-10.flex { margin-top: 1.75rem !important; }
+  #hero .mt-12.flex.flex-col.items-center { margin-top: 2rem !important; }
+}
+
+@media (max-width: 47.999rem) {
+  .display-xl { font-size: clamp(2.35rem, 12vw, 4.25rem); line-height: 0.96; }
+  .display-lg { font-size: clamp(2rem, 10vw, 3.75rem); line-height: 0.98; }
+  .display-md { font-size: clamp(1.4rem, 7.5vw, 2.4rem); }
+  .body-lg { font-size: 1rem; line-height: 1.6; }
+
+  #hero > .relative { padding-left: 1rem; padding-right: 1rem; }
+  #hero .mt-10.flex > a { width: 100%; min-height: 3.25rem; }
+  #hero .mt-12.flex.flex-col.items-center { align-items: flex-start; text-align: left; }
+  #hero .mt-12.flex.flex-col.items-center > div:last-child { text-align: left; }
+}
+
+@media (max-width: 23rem) {
+  .label-mono { letter-spacing: 0.12em; }
+  #hero > .relative { padding-left: 0.875rem; padding-right: 0.875rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-
-  *, *::before, *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-  }
-
-  .reveal,
-  .reveal-mask,
-  .line-rise > span {
-    opacity: 1 !important;
-    transform: none !important;
-    clip-path: none !important;
-  }
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  .reveal, .reveal-mask, .line-rise > span { opacity: 1 !important; transform: none !important; clip-path: none !important; }
 }
