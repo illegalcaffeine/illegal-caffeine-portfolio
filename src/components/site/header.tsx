@@ -62,13 +62,13 @@ export function SiteHeader() {
         scrolled || open ? "border-b border-border bg-background/92 backdrop-blur-sm" : "",
       )}
     >
-      <div className="mx-auto flex h-16 max-w-[1600px] items-center justify-between px-5 md:h-20 md:px-10">
+      <div className="mx-auto flex h-16 max-w-[1600px] items-center justify-between px-4 sm:px-5 lg:h-20 lg:px-10">
         <Link
           to="/"
-          className="flex items-center gap-3 transition-opacity hover:opacity-60"
+          className="flex min-w-0 items-center gap-3 transition-opacity hover:opacity-60"
           aria-label="Illegal Caffeine - Designer - — home"
         >
-          <span className="h-9 w-9 shrink-0 overflow-hidden rounded-[9px] bg-surface md:h-10 md:w-10 md:rounded-[10px]">
+          <span className="h-9 w-9 shrink-0 overflow-hidden rounded-[9px] bg-surface lg:h-10 lg:w-10 lg:rounded-[10px]">
             <img
               src="/illegalcaffeine-logo.png"
               alt=""
@@ -78,12 +78,12 @@ export function SiteHeader() {
               height={40}
             />
           </span>
-          <span className="label-mono hidden text-foreground sm:inline">
+          <span className="label-mono hidden truncate text-foreground sm:inline">
             ILLEGAL CAFFEINE<span className="text-muted-foreground"> - DESIGNER -</span>
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-10 md:flex" aria-label="Main">
+        <nav className="hidden items-center gap-6 xl:gap-10 lg:flex" aria-label="Main">
           {nav.map((item) =>
             item.to === "/contact" ? (
               <Link
@@ -101,14 +101,13 @@ export function SiteHeader() {
                 className="label-mono relative py-2 transition-colors hover:text-foreground data-[status=active]:text-foreground"
               >
                 {t(item.label)}
-                <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-foreground transition-[width] duration-500 group-hover:w-full" />
               </Link>
             )
           )}
           <LanguageSwitch className="-mr-2" />
         </nav>
 
-        <div className="flex items-center gap-1 md:hidden">
+        <div className="flex shrink-0 items-center gap-1 lg:hidden">
           <LanguageSwitch />
           <button
             type="button"
@@ -137,17 +136,17 @@ export function SiteHeader() {
 
       <div
         className={cn(
-          "overflow-hidden border-border transition-[max-height,opacity] duration-500 md:hidden",
-          open ? "max-h-[80vh] border-t opacity-100" : "max-h-0 opacity-0",
+          "overflow-hidden border-border transition-[max-height,opacity] duration-500 lg:hidden",
+          open ? "max-h-[calc(100svh-4rem)] border-t opacity-100" : "max-h-0 opacity-0",
         )}
       >
-        <nav className="flex flex-col px-5 py-4" aria-label="Mobile">
+        <nav className="flex max-h-[calc(100svh-4rem)] flex-col overflow-y-auto px-4 py-4 sm:px-5" aria-label="Mobile">
           {nav.map((item) =>
             item.to === "/contact" ? (
               <Link
                 key={item.to}
                 to={item.to}
-                className="label-mono mt-6 flex min-h-12 items-center justify-center border border-border-strong text-foreground"
+                className="label-mono mt-5 flex min-h-12 items-center justify-center border border-border-strong text-foreground"
               >
                 {t(item.label)}
               </Link>
@@ -156,7 +155,7 @@ export function SiteHeader() {
                 key={item.to}
                 to={item.to}
                 activeOptions={{ exact: item.to === "/" }}
-                className="display-md border-b border-border py-5 text-muted-foreground data-[status=active]:text-foreground"
+                className="display-md border-b border-border py-4 text-muted-foreground data-[status=active]:text-foreground sm:py-5"
               >
                 {t(item.label)}
               </Link>
