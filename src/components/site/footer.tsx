@@ -7,10 +7,10 @@ export function SiteFooter() {
 
   return (
     <footer className="border-t border-border">
-      <div className="mx-auto max-w-[1600px] px-5 py-14 md:px-10 md:py-20">
-        <div className="grid gap-10 md:grid-cols-3">
-          <div>
-            <p className="label-mono text-foreground">ILLEGAL CAFFEINE - DESIGNER -</p>
+      <div className="mx-auto max-w-[1600px] px-5 py-12 sm:py-14 md:px-10 md:py-20">
+        <div className="grid gap-9 sm:grid-cols-2 sm:gap-10 lg:grid-cols-3">
+          <div className="sm:col-span-2 lg:col-span-1">
+            <p className="label-mono break-words text-foreground">ILLEGAL CAFFEINE - DESIGNER -</p>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
               {t(
                 "Independent worldbuilding studio.                Commissions for servers, creators and individuals.",
@@ -20,13 +20,19 @@ export function SiteFooter() {
 
           <div className="flex flex-col gap-3">
             <p className="label-mono underline">{t("Navigate")}</p>
-            <Link to="/" className="text-sm text-muted-foreground hover:text-foreground">
+            <Link to="/" className="min-h-9 text-sm text-muted-foreground hover:text-foreground">
               {t("Index")}
             </Link>
-            <Link to="/work" className="text-sm text-muted-foreground hover:text-foreground">
+            <Link to="/work" className="min-h-9 text-sm text-muted-foreground hover:text-foreground">
               {t("archive")}
             </Link>
-            <Link to="/contact" className="text-sm text-muted-foreground hover:text-foreground">
+            <Link to="/payment" className="min-h-9 text-sm text-muted-foreground hover:text-foreground">
+              {t("Payment")}
+            </Link>
+            <Link to="/faq" className="min-h-9 text-sm text-muted-foreground hover:text-foreground">
+              FAQ
+            </Link>
+            <Link to="/contact" className="min-h-9 text-sm text-muted-foreground hover:text-foreground">
               {t("Start a Project")}
             </Link>
           </div>
@@ -37,8 +43,8 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-14 border-t border-border pt-6">
-          <p className="label-mono text-foreground">
+        <div className="mt-12 border-t border-border pt-6 sm:mt-14">
+          <p className="label-mono break-words text-foreground">
             {lang === "ko" ? "COPYRIGHT / 사용 안내" : "COPYRIGHT / USAGE NOTICE"}
           </p>
           <p className="mt-3 max-w-3xl text-xs leading-relaxed text-muted-foreground">
@@ -48,9 +54,11 @@ export function SiteFooter() {
           </p>
         </div>
 
-        <div className="mt-8 flex flex-col justify-between gap-3 border-t border-border pt-6 md:flex-row">
-          <p className="label-mono">© 2018{" "}ILLEGAL CAFFEINE - DESIGNER -</p>
-          <p className="label-mono">{t("NOT AFFILIATED WITH MOJANG OR MICROSOFT")}</p>
+        <div className="mt-8 flex flex-col justify-between gap-4 border-t border-border pt-6 lg:flex-row lg:items-end">
+          <p className="label-mono break-words leading-relaxed">© 2018{" "}ILLEGAL CAFFEINE - DESIGNER -</p>
+          <p className="label-mono max-w-full break-words leading-relaxed lg:text-right">
+            {t("NOT AFFILIATED WITH MOJANG OR MICROSOFT")}
+          </p>
         </div>
       </div>
     </footer>
