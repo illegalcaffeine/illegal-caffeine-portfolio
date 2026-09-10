@@ -64,10 +64,22 @@ export function SiteHeader() {
       <div className="mx-auto flex h-16 max-w-[1600px] items-center justify-between px-5 md:h-20 md:px-10">
         <Link
           to="/"
-          className="label-mono text-foreground transition-opacity hover:opacity-60"
+          className="flex items-center gap-3 transition-opacity hover:opacity-60"
           aria-label="Illegal Caffeine - Designer - — home"
         >
-          ILLEGAL CAFFEINE<span className="text-muted-foreground"> - DESIGNER -</span>
+          <span className="h-9 w-9 shrink-0 overflow-hidden rounded-[9px] bg-surface md:h-10 md:w-10 md:rounded-[10px]">
+            <img
+              src="/illegalcaffeine-logo.png"
+              alt=""
+              aria-hidden="true"
+              className="h-full w-full object-cover [image-rendering:pixelated]"
+              width={40}
+              height={40}
+            />
+          </span>
+          <span className="label-mono hidden text-foreground sm:inline">
+            ILLEGAL CAFFEINE<span className="text-muted-foreground"> - DESIGNER -</span>
+          </span>
         </Link>
 
         <nav className="hidden items-center gap-10 md:flex" aria-label="Main">
@@ -122,7 +134,6 @@ export function SiteHeader() {
         </div>
       </div>
 
-      {/* Mobile navigation */}
       <div
         className={cn(
           "overflow-hidden border-border transition-[max-height,opacity] duration-500 md:hidden",
