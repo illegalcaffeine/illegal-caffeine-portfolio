@@ -75,6 +75,12 @@
   --ring: oklch(0.648 0.006 85);
 }
 
+html[lang="ko"] {
+  --font-display: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-sans: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
 @layer base {
   * { border-color: var(--color-border); }
 
@@ -98,16 +104,7 @@
   html[lang="ko"] select,
   html[lang="ko"] textarea,
   html[lang="ko"] button {
-    font-family: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  }
-
-  html[lang="ko"] .label-mono,
-  html[lang="ko"] .display-xl,
-  html[lang="ko"] .display-hero,
-  html[lang="ko"] .display-lg,
-  html[lang="ko"] .display-md,
-  html[lang="ko"] .body-lg {
-    font-family: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-family: var(--font-sans);
   }
 
   img, video, svg { max-width: 100%; }
