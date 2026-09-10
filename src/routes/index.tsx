@@ -96,6 +96,7 @@ function HomePage() {
       <Intro home={home} lang={lang} />
       <SelectedWork projects={selected} />
       <WhatWeBuild home={home} lang={lang} />
+      <FeaturedVideo home={home} lang={lang} />
       <BuildCycle />
       <About home={home} lang={lang} />
       <FinalCta home={home} lang={lang} />
@@ -200,7 +201,7 @@ function WhatWeBuild({ home, lang }: { home: SiteContent["homepage"]; lang: stri
   const t = useT();
   const [active, setActive] = useState(0);
   const current = home.disciplines[active] ?? home.disciplines[0]!;
-  const currentImage = current.image_url || disciplineFallbacks[current.id];
+  const currentImage = current.image_urls?.[0] || current.image_url || disciplineFallbacks[current.id];
   return (
     <section id="what-we-build" className="scroll-mt-20 border-t border-border bg-surface/40">
       <div className="mx-auto max-w-[1600px] px-5 py-20 md:px-10 md:py-32">
@@ -209,6 +210,56 @@ function WhatWeBuild({ home, lang }: { home: SiteContent["homepage"]; lang: stri
           <Reveal variant="mask" className="md:col-span-6 md:order-2">{currentImage ? <div key={`${current.id}-${currentImage}`} className="relative aspect-4/3 animate-fade-in border border-border bg-surface"><img src={currentImage} alt={`${pick(current.label, lang)} built in Minecraft`} className="absolute inset-0 h-full w-full object-cover" /></div> : <div className="aspect-4/3 border border-border" />}</Reveal>
           <div className="md:col-span-6 md:order-1"><ul className="border-t border-border">{home.disciplines.map((d, i) => <li key={d.id} className="border-b border-border"><button type="button" onMouseEnter={() => setActive(i)} onFocus={() => setActive(i)} onClick={() => setActive(i)} aria-pressed={i === active} className="flex w-full items-baseline gap-5 py-6 text-left md:py-8"><span className="label-mono w-8 shrink-0">{String(i + 1).padStart(2, "0")}</span><span className={cn("display-md text-[25px] transition-colors duration-500", i === active ? "text-foreground" : "text-muted-foreground")}>{pick(d.label, lang)}</span></button></li>)}</ul></div>
         </div>
+      </div>
+    </section>
+  );
+}
+
+function youtubeVideoId(input: string) {
+  const value = input.trim();
+  if (!value) return "";
+  try {
+    const url = new URL(value.startsWith("http") ? value : `https://${value}`);
+    if (url.hostname === "youtu.be" || url.hostname === "www.youtu.be") return url.pathname.split("/").filter(Boolean)[0] ?? "";
+    if (url.hostname.endsWith("youtube.com")) {
+      if (url.pathname === "/watch") return url.searchParams.get("v") ?? "";
+      const parts = url.pathname.split("/").filter(Boolean);
+      if (["embed", "shorts", "live"].includes(parts[0] ?? "")) return parts[1] ?? "";
+    }
+  } catch {
+    return "";
+  }
+  return "";
+}
+
+function FeaturedVideo({ home, lang }: { home: SiteContent["homepage"]; lang: string }) {
+  const video = home.featured_video;
+  const videoId = youtubeVideoId(video.youtube_url);
+  if (!video.enabled || !videoId) return null;
+  const title = pick(video.title, lang);
+  const body = pick(video.body, lang);
+  return (
+    <section id="featured-video" className="border-t border-border">
+      <div className="mx-auto max-w-[1600px] px-5 py-20 md:px-10 md:py-32">
+        <Reveal className="grid gap-8 md:grid-cols-12 md:gap-12">
+          <div className="md:col-span-4">
+            <p className="label-mono text-foreground">FEATURED VIDEO</p>
+            {title && <h2 className="display-md mt-5 max-w-[14ch]">{title}</h2>}
+            {body && <p className="mt-5 max-w-md text-sm leading-relaxed text-muted-foreground md:text-base">{body}</p>}
+          </div>
+          <div className="md:col-span-8">
+            <div className="aspect-video overflow-hidden border border-border bg-surface">
+              <iframe
+                src={`https://www.youtube-nocookie.com/embed/${videoId}?rel=0&modestbranding=1`}
+                title={title || "Illegal Caffeine featured video"}
+                className="h-full w-full"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              />
+            </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
