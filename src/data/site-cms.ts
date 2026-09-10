@@ -1,7 +1,7 @@
 import { supabase } from "@/integrations/supabase/client";
 
 export type BilingualText = { en: string; ko: string };
-export type DisciplineContent = { id: string; label: BilingualText; note: BilingualText; image_url: string };
+export type DisciplineContent = { id: string; label: BilingualText; note: BilingualText; image_url: string; image_urls?: string[] };
 export type FaqContentItem = { question: BilingualText; answer: BilingualText };
 
 export type SiteContent = {
@@ -65,11 +65,11 @@ export const defaultSiteContent: SiteContent = {
       "서버, 크리에이터, 개인을 위해 커스텀 Minecraft 건축과 환경, 완성된 월드를 제작합니다. 단순한 블록 더미가 아니라 실제 장소처럼 느껴지는 공간을 만듭니다.",
     ),
     disciplines: [
-      { id: "spawns", label: bi("Server Spawns & Hubs", "서버 스폰 & 허브"), note: bi("Arrival, wayfinding, first impression.", "도착, 동선, 첫인상."), image_url: "" },
-      { id: "special-effects", label: bi("Special Effects", "특수 효과"), note: bi("Large-scale visual effects and set pieces.", "대규모 시각 효과와 연출."), image_url: "" },
-      { id: "fantasy", label: bi("Fantasy Worlds", "판타지 월드"), note: bi("Monuments, kingdoms, invented cultures.", "기념비, 왕국, 창작 문화."), image_url: "" },
-      { id: "terrain", label: bi("Terrain & Environments", "지형 & 환경"), note: bi("Built like nothing you've seen before.", "전에 본 적 없는 방식으로 구축합니다."), image_url: "" },
-      { id: "streamer", label: bi("Streamer Servers", "스트리머 서버"), note: bi("Complete worlds made for creators and communities.", "크리에이터와 커뮤니티를 위한 완성형 월드."), image_url: "" },
+      { id: "spawns", label: bi("Server Spawns & Hubs", "서버 스폰 & 허브"), note: bi("Arrival, wayfinding, first impression.", "도착, 동선, 첫인상."), image_url: "", image_urls: [] },
+      { id: "special-effects", label: bi("Special Effects", "특수 효과"), note: bi("Large-scale visual effects and set pieces.", "대규모 시각 효과와 연출."), image_url: "", image_urls: [] },
+      { id: "fantasy", label: bi("Fantasy Worlds", "판타지 월드"), note: bi("Monuments, kingdoms, invented cultures.", "기념비, 왕국, 창작 문화."), image_url: "", image_urls: [] },
+      { id: "terrain", label: bi("Terrain & Environments", "지형 & 환경"), note: bi("Built like nothing you've seen before.", "전에 본 적 없는 방식으로 구축합니다."), image_url: "", image_urls: [] },
+      { id: "streamer", label: bi("Streamer Servers", "스트리머 서버"), note: bi("Complete worlds made for creators and communities.", "크리에이터와 커뮤니티를 위한 완성형 월드."), image_url: "", image_urls: [] },
     ],
     about_title_1: bi("Not just blocks.", "단순한 블록이 아닙니다."),
     about_title_2: bi("Places with identity.", "정체성을 가진 장소."),
@@ -128,6 +128,21 @@ function deepMerge<T>(base: T, override: unknown): T {
   return result as T;
 }
 
+function normalizeGenreImages(content: SiteContent): SiteContent {
+  return {
+    ...content,
+    homepage: {
+      ...content.homepage,
+      disciplines: content.homepage.disciplines.map((item) => {
+        const imageUrls = Array.isArray(item.image_urls) && item.image_urls.length > 0
+          ? item.image_urls.filter(Boolean)
+          : item.image_url ? [item.image_url] : [];
+        return { ...item, image_urls: imageUrls, image_url: imageUrls[0] ?? "" };
+      }),
+    },
+  };
+}
+
 export async function fetchSiteContent(): Promise<SiteContent> {
   try {
     const db = supabase as any;
@@ -137,7 +152,7 @@ export async function fetchSiteContent(): Promise<SiteContent> {
     for (const row of data as Array<{ key: keyof SiteContent; value: unknown }>) {
       if (row.key in content) content = { ...content, [row.key]: deepMerge(content[row.key], row.value) };
     }
-    return content;
+    return normalizeGenreImages(content);
   } catch {
     return defaultSiteContent;
   }
