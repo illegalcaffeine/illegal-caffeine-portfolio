@@ -75,10 +75,13 @@
   --ring: oklch(0.648 0.006 85);
 }
 
+/* Korean pages keep the exact English-page typefaces for Latin characters.
+   SUIT is only used as the Hangul fallback, so mixed Korean/English text stays
+   visually consistent with the English version of the site. */
 html[lang="ko"] {
-  --font-display: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-sans: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-mono: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display: "Archivo", "SUIT", "Helvetica Neue", sans-serif;
+  --font-sans: "Archivo", "SUIT", "Helvetica Neue", sans-serif;
+  --font-mono: "IBM Plex Mono", "SUIT", ui-monospace, monospace;
 }
 
 @layer base {
