@@ -111,19 +111,26 @@
     background-size: 1rem 1rem;
   }
 
-  #hero > .absolute {
+  /* Hero uses large translated text blocks. Keep those decorative/visual layers
+     out of hit-testing so they cannot sit over the CTA buttons. */
+  #hero > .absolute,
+  #hero .display-md,
+  #hero .body-lg,
+  #hero .mt-12.flex.flex-col.items-center {
     pointer-events: none;
   }
 
   #hero > .relative {
+    position: relative;
     z-index: 10;
   }
 
   #hero a[href="#selected-work"],
   #hero a[href="/contact"] {
-    position: relative;
-    z-index: 20;
-    pointer-events: auto;
+    position: relative !important;
+    z-index: 999 !important;
+    pointer-events: auto !important;
+    cursor: pointer;
   }
 }
 
