@@ -1,3 +1,4 @@
+@import url("https://cdn.jsdelivr.net/gh/fonts-archive/SUIT/subsets/SUIT-dynamic-subset.css");
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
@@ -90,6 +91,23 @@
     font-synthesis-weight: none;
     -webkit-font-smoothing: antialiased;
     overflow-x: clip;
+  }
+
+  html[lang="ko"] body,
+  html[lang="ko"] input,
+  html[lang="ko"] select,
+  html[lang="ko"] textarea,
+  html[lang="ko"] button {
+    font-family: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  html[lang="ko"] .label-mono,
+  html[lang="ko"] .display-xl,
+  html[lang="ko"] .display-hero,
+  html[lang="ko"] .display-lg,
+  html[lang="ko"] .display-md,
+  html[lang="ko"] .body-lg {
+    font-family: "SUIT", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   }
 
   img, video, svg { max-width: 100%; }
