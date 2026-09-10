@@ -17,7 +17,7 @@ const STORAGE_KEY = "ics-language";
 type LanguageContextValue = {
   lang: Language;
   setLang: (lang: Language) => void;
-  /** True once a language has been chosen (or restored from storage). */
+  /** True once a language has been chosen for this page entry. */
   chosen: boolean;
   /** True after hydration — used to keep server and client markup identical. */
   ready: boolean;
@@ -32,6 +32,8 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
+    // Remember the last language only as the page's initial background language.
+    // Do not mark it as chosen: a fresh site entry should always show LanguageGate.
     let stored: string | null = null;
     try {
       stored = window.localStorage.getItem(STORAGE_KEY);
@@ -40,7 +42,6 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     }
     if (stored === "en" || stored === "ko") {
       setLangState(stored);
-      setChosen(true);
     }
     setReady(true);
   }, []);
