@@ -15,7 +15,6 @@ import { SiteHeader } from "@/components/site/header";
 import { SiteFooter } from "@/components/site/footer";
 import { SiteExtras } from "@/components/site/site-extras";
 import { CursorFollower } from "@/components/site/cursor-follower";
-import { GoodbyeOverlay } from "@/components/site/goodbye-overlay";
 import { Toaster } from "@/components/ui/sonner";
 import { LanguageProvider, useLanguage } from "@/i18n";
 import { LanguageGate } from "@/components/site/language-gate";
@@ -115,7 +114,6 @@ function RootComponent() {
         <main><Outlet /></main>
         <SiteExtras />
         <SiteFooter />
-        <GoodbyeOverlay />
         <Toaster />
         <CursorFollower />
       </LanguageProvider>
