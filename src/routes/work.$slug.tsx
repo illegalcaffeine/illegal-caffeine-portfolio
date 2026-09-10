@@ -2,20 +2,20 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useState } from "react";
 import { ArrowLeft, ArrowRight, Expand } from "lucide-react";
 
-import { getProject, getProjectNeighbours } from "@/data/projects";
+import { fetchPublishedPortfolioProjectSet } from "@/data/portfolio-cms";
 import { Reveal, RevealLines } from "@/components/site/reveal";
 import { Parallax } from "@/components/site/parallax";
 import { Lightbox } from "@/components/site/lightbox";
-import { useT } from "@/i18n";
+import { useLanguage, useT } from "@/i18n";
 
 export const Route = createFileRoute("/work/$slug")({
-  loader: ({ params }) => {
-    const project = getProject(params.slug);
-    if (!project) throw notFound();
-    return { project, ...getProjectNeighbours(params.slug) };
+  loader: async ({ params }) => {
+    const result = await fetchPublishedPortfolioProjectSet(params.slug);
+    if (!result.project) throw notFound();
+    return result;
   },
   head: ({ loaderData }) => {
-    if (!loaderData) {
+    if (!loaderData?.project) {
       return {
         meta: [
           { title: "Project not found — Illegal Caffeine - Designer -" },
@@ -40,8 +40,21 @@ export const Route = createFileRoute("/work/$slug")({
 
 function ProjectPage() {
   const t = useT();
+  const { lang } = useLanguage();
   const { project, prev, next } = Route.useLoaderData();
   const [lightbox, setLightbox] = useState<number | null>(null);
+
+  const category =
+    lang === "ko"
+      ? project.categoryKo || (project.category ? t(project.category) : "")
+      : project.category || "";
+  const descriptions =
+    lang === "ko" && project.descriptionKo?.length ? project.descriptionKo : project.description;
+  const gallery = project.gallery.map((image) => ({
+    src: image.src,
+    caption: lang === "ko" ? image.captionKo || t(image.caption) : image.caption,
+  }));
+  const award = lang === "ko" ? project.awardKo : project.awardEn;
 
   return (
     <>
@@ -59,10 +72,8 @@ function ProjectPage() {
           <Link to="/work" className="label-mono inline-flex min-h-11 items-center gap-2 hover:text-foreground">
             <ArrowLeft className="h-3.5 w-3.5" aria-hidden /> {t("All work")}
           </Link>
-          {project.category && (
-            <p className="label-mono mt-5 text-foreground sm:mt-7 md:mt-8">
-              {project.category === "Streamer Server" ? "" : t(project.category)}
-            </p>
+          {category && project.category !== "Streamer Server" && (
+            <p className="label-mono mt-5 text-foreground sm:mt-7 md:mt-8">{category}</p>
           )}
           <RevealLines
             immediate
@@ -75,11 +86,12 @@ function ProjectPage() {
       <section className="mx-auto max-w-[1600px] px-5 py-12 sm:py-14 md:px-10 md:py-24">
         <div className="grid gap-8 md:grid-cols-12 md:gap-16">
           <Reveal className="space-y-5 md:col-span-7 md:col-start-6">
-            {project.description.map((paragraph) => (
-              <p key={paragraph.slice(0, 24)} className="body-lg">
-                {t(paragraph)}
-              </p>
+            {descriptions.map((paragraph) => (
+              <p key={paragraph.slice(0, 32)} className="body-lg">{paragraph}</p>
             ))}
+            {award && (
+              <p className="label-mono border-t border-border pt-5 text-foreground">{award}</p>
+            )}
           </Reveal>
         </div>
       </section>
@@ -89,12 +101,12 @@ function ProjectPage() {
           <div className="flex items-end justify-between gap-6">
             <h2 className="label-mono text-foreground">{t("GALLERY")}</h2>
             <p className="label-mono">
-              {String(project.gallery.length).padStart(2, "0")} {t("IMAGES")}
+              {String(gallery.length).padStart(2, "0")} {t("IMAGES")}
             </p>
           </div>
 
           <div className="mt-6 flex flex-col gap-7 sm:mt-8 sm:gap-8 md:gap-10">
-            {project.gallery.map((image, i) => (
+            {gallery.map((image, i) => (
               <Reveal
                 variant="mask"
                 key={image.src + i}
@@ -105,22 +117,21 @@ function ProjectPage() {
                     type="button"
                     onClick={() => setLightbox(i)}
                     className="zoom-frame group relative block w-full border border-border"
-                    aria-label={`${t("Open image")}: ${t(image.caption)}`}
+                    aria-label={`${t("Open image")}: ${image.caption}`}
                   >
                     <img
                       src={image.src}
-                      alt={t(image.caption)}
+                      alt={image.caption}
                       loading="eager"
                       className="mx-auto block max-h-[80vh] w-full object-contain"
                     />
-
                     <span className="absolute right-2 bottom-2 flex h-10 w-10 items-center justify-center border border-border bg-background/70 opacity-100 transition-opacity duration-500 sm:right-3 sm:bottom-3 sm:h-11 sm:w-11 md:opacity-0 md:group-hover:opacity-100">
                       <Expand className="h-4 w-4" aria-hidden />
                     </span>
                   </button>
                 </Parallax>
                 <p className="label-mono mt-3 break-words">
-                  {String(i + 1).padStart(2, "0")} / {t(image.caption)}
+                  {String(i + 1).padStart(2, "0")} / {image.caption}
                 </p>
               </Reveal>
             ))}
@@ -177,7 +188,7 @@ function ProjectPage() {
       </section>
 
       <Lightbox
-        images={project.gallery}
+        images={gallery}
         index={lightbox}
         onClose={() => setLightbox(null)}
         onIndexChange={setLightbox}
