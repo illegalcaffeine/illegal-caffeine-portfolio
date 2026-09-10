@@ -119,6 +119,132 @@ function assertReferenceLimits(files: Array<{ contentType: string; size: number 
   if (total > MAX_TOTAL_SIZE) throw new Error("Reference images are too large");
 }
 
+
+function expectedExtension(contentType: InquiryReferenceFile["contentType"]) {
+  if (contentType === "image/jpeg") return "jpg";
+  if (contentType === "image/png") return "png";
+  return "webp";
+}
+
+function sanitizeAttachmentFilename(
+  filename: string,
+  contentType: InquiryReferenceFile["contentType"],
+) {
+  const extension = expectedExtension(contentType);
+  const leaf = filename.replace(/\\/g, "/").split("/").pop() || "reference";
+  const stem = leaf
+    .replace(/\.[^.]*$/, "")
+    .replace(/[\u0000-\u001f\u007f]/g, "")
+    .replace(/[^a-zA-Z0-9 _().\-]/g, "_")
+    .trim()
+    .slice(0, 96) || "reference";
+  return `${stem}.${extension}`;
+}
+
+function readUint32BE(bytes: Uint8Array, offset: number) {
+  return (
+    bytes[offset] * 0x1000000 +
+    bytes[offset + 1] * 0x10000 +
+    bytes[offset + 2] * 0x100 +
+    bytes[offset + 3]
+  );
+}
+
+function readUint32LE(bytes: Uint8Array, offset: number) {
+  return (
+    bytes[offset] +
+    bytes[offset + 1] * 0x100 +
+    bytes[offset + 2] * 0x10000 +
+    bytes[offset + 3] * 0x1000000
+  );
+}
+
+function assertPngStructure(bytes: Uint8Array) {
+  const signature = [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a];
+  if (bytes.length < 33 || !signature.every((value, index) => bytes[index] === value)) {
+    throw new Error("Reference image content does not match PNG");
+  }
+
+  let offset = 8;
+  let sawIhdr = false;
+  let sawIend = false;
+  while (offset + 12 <= bytes.length) {
+    const length = readUint32BE(bytes, offset);
+    const typeOffset = offset + 4;
+    const dataOffset = offset + 8;
+    const end = dataOffset + length + 4; // includes CRC
+    if (end > bytes.length) throw new Error("Malformed PNG reference image");
+
+    const type = String.fromCharCode(
+      bytes[typeOffset],
+      bytes[typeOffset + 1],
+      bytes[typeOffset + 2],
+      bytes[typeOffset + 3],
+    );
+
+    if (!sawIhdr) {
+      if (type !== "IHDR" || length !== 13) throw new Error("Malformed PNG reference image");
+      sawIhdr = true;
+      const width = readUint32BE(bytes, dataOffset);
+      const height = readUint32BE(bytes, dataOffset + 4);
+      if (width <= 0 || height <= 0 || width > 20000 || height > 20000) {
+        throw new Error("PNG reference image dimensions are invalid");
+      }
+    }
+
+    offset = end;
+    if (type === "IEND") {
+      if (length !== 0 || offset !== bytes.length) {
+        throw new Error("PNG reference image has unexpected trailing data");
+      }
+      sawIend = true;
+      break;
+    }
+  }
+
+  if (!sawIhdr || !sawIend) throw new Error("Malformed PNG reference image");
+}
+
+function assertJpegStructure(bytes: Uint8Array) {
+  if (
+    bytes.length < 4 ||
+    bytes[0] !== 0xff ||
+    bytes[1] !== 0xd8 ||
+    bytes[bytes.length - 2] !== 0xff ||
+    bytes[bytes.length - 1] !== 0xd9
+  ) {
+    throw new Error("Reference image content does not match JPEG");
+  }
+}
+
+function assertWebpStructure(bytes: Uint8Array) {
+  if (bytes.length < 12) throw new Error("Reference image content does not match WebP");
+  const riff = String.fromCharCode(bytes[0], bytes[1], bytes[2], bytes[3]);
+  const webp = String.fromCharCode(bytes[8], bytes[9], bytes[10], bytes[11]);
+  if (riff !== "RIFF" || webp !== "WEBP") {
+    throw new Error("Reference image content does not match WebP");
+  }
+  const declaredSize = readUint32LE(bytes, 4) + 8;
+  if (declaredSize !== bytes.length) {
+    throw new Error("WebP reference image has unexpected trailing or truncated data");
+  }
+}
+
+function assertTrustedImageBytes(
+  bytes: Uint8Array,
+  contentType: InquiryReferenceFile["contentType"],
+) {
+  if (contentType === "image/png") {
+    assertPngStructure(bytes);
+    return;
+  }
+  if (contentType === "image/jpeg") {
+    assertJpegStructure(bytes);
+    return;
+  }
+  assertWebpStructure(bytes);
+}
+
 function assertStoragePath(uploadSessionId: string, storagePath: string) {
   const prefix = `inquiries/${uploadSessionId}/`;
   if (!storagePath.startsWith(prefix)) throw new Error("Invalid reference image path");
@@ -241,6 +367,11 @@ export async function deliverInquiryEmail(data: InquiryEmailPayload) {
       throw new Error("Downloaded reference image size mismatch");
     }
 
+    // Do not trust extension/MIME metadata alone. Validate the actual file bytes
+    // before passing a customer upload to Resend/Gmail. This adds no image
+    // recompression or file-size overhead.
+    assertTrustedImageBytes(bytes, file.contentType);
+
     let binary = "";
     const chunkSize = 0x8000;
     for (let offset = 0; offset < bytes.length; offset += chunkSize) {
@@ -248,7 +379,7 @@ export async function deliverInquiryEmail(data: InquiryEmailPayload) {
     }
 
     emailAttachments.push({
-      filename: file.filename,
+      filename: sanitizeAttachmentFilename(file.filename, file.contentType),
       content: btoa(binary),
       content_type: file.contentType,
     });
