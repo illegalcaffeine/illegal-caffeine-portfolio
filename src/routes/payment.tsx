@@ -29,21 +29,25 @@ function PaymentPage() {
   const t = useT();
   return (
     <>
-      <section className="border-b border-border px-5 pt-32 pb-10 md:px-10 md:pt-48 md:pb-14">
+      <section className="border-b border-border px-5 pt-28 pb-9 sm:pt-32 sm:pb-10 md:px-10 md:pt-48 md:pb-14">
         <div className="mx-auto max-w-[1600px]">
           <p className="label-mono">
             {"\u00a0"}
             {t(paymentInfo.provider.toUpperCase())}
           </p>
-          <h1 className="display-xl mt-6 !text-[60px]">{t(paymentInfo.title)}</h1>
+          <h1 className="display-xl mt-5 break-words !text-[clamp(2.5rem,12vw,3.75rem)] md:mt-6 md:!text-[60px]">
+            {t(paymentInfo.title)}
+          </h1>
         </div>
       </section>
 
-      <section className="mx-auto max-w-[1600px] px-5 py-16 md:px-10 md:py-24">
-        <div className="grid gap-12 md:grid-cols-12 md:gap-10">
+      <section className="mx-auto max-w-[1600px] px-5 py-12 sm:py-16 md:px-10 md:py-24">
+        <div className="grid gap-9 sm:gap-12 md:grid-cols-12 md:gap-10">
           <div className="md:col-span-5">
             <Reveal>
-              <h2 className="display-md">{t(paymentInfo.heading)}</h2>
+              <h2 className="display-md max-w-[16ch] break-words !text-[clamp(1.75rem,9vw,2.75rem)] md:!text-[clamp(1.5rem,3.2vw,2.75rem)]">
+                {t(paymentInfo.heading)}
+              </h2>
             </Reveal>
           </div>
           <div className="md:col-span-6 md:col-start-7">
@@ -51,19 +55,19 @@ function PaymentPage() {
               <p className="body-lg">{t("Commission payments are handled through PayPal.")}</p>
             </Reveal>
             <Reveal delay={140}>
-              <p className="mt-6 text-muted-foreground">
+              <p className="mt-5 text-sm leading-relaxed text-muted-foreground sm:mt-6 sm:text-base">
                 {t("This website does not process payments directly.")}
               </p>
             </Reveal>
             <Reveal delay={200}>
-              <p className="mt-4 text-muted-foreground">
+              <p className="mt-4 text-sm leading-relaxed text-muted-foreground sm:text-base">
                 {t("Payment details are provided after the project scope and terms are agreed.")}
               </p>
             </Reveal>
             <Reveal delay={260}>
               <Link
                 to="/contact"
-                className="label-mono mt-10 inline-flex min-h-12 items-center border border-border-strong px-6 text-foreground transition-colors hover:bg-foreground hover:text-background"
+                className="label-mono mt-8 inline-flex min-h-12 w-full items-center justify-center border border-border-strong px-6 text-foreground transition-colors hover:bg-foreground hover:text-background sm:mt-10 sm:w-auto"
               >
                 {t("Start a Project")}
               </Link>
