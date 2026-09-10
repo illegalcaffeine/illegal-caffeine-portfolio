@@ -65,6 +65,9 @@ const galleryPaths: Record<string, string[]> = {
   "autumn-canyon": ["/work/autumn-canyon.png", "/work/white-range.png"],
 };
 
+const organicDescriptionKo =
+  "순수미술과 입체 조형을 기반으로, 생물부터 복잡한 자연 구조까지 유기적이고 조각적인 형태를 마인크래프트로 옮기는 작업을 전문으로 합니다.";
+
 function translate(text: string | undefined) {
   if (!text) return "";
   return ko[text] ?? text;
@@ -77,7 +80,9 @@ export const portfolioSeedRows: Omit<CmsProjectRow, "id">[] = staticProjects.map
   category_ko: translate(project.category),
   filter: project.filter,
   description_en: project.description,
-  description_ko: project.description.map(translate),
+  description_ko: project.description.map((paragraph, paragraphIndex) =>
+    project.slug === "celestial-palace" && paragraphIndex === 0 ? organicDescriptionKo : translate(paragraph),
+  ),
   cover_url: coverPaths[project.slug] ?? project.cover,
   gallery: project.gallery.map((item, galleryIndex) => ({
     url: galleryPaths[project.slug]?.[galleryIndex] ?? item.src,
