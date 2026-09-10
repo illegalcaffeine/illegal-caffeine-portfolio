@@ -241,6 +241,12 @@
   #hero .body-lg { margin-top: 1rem !important; max-width: 32rem; }
   #hero .mt-10.flex { margin-top: 1.75rem !important; }
   #hero .mt-12.flex.flex-col.items-center { margin-top: 2rem !important; }
+
+  #about .display-lg > .line-rise > span,
+  #start-a-project .display-xl > .line-rise > span {
+    font-size: clamp(2.5rem, 7vw, 3.75rem) !important;
+    line-height: 1.02 !important;
+  }
 }
 
 @media (max-width: 47.999rem) {
@@ -249,10 +255,34 @@
   .display-md { font-size: clamp(1.4rem, 7.5vw, 2.4rem); }
   .body-lg { font-size: 1rem; line-height: 1.6; }
 
+  .display-xl > .line-rise > span {
+    font-size: clamp(2.35rem, 12vw, 4.25rem) !important;
+    line-height: 0.98 !important;
+  }
+
+  .display-lg > .line-rise > span {
+    font-size: clamp(2rem, 10vw, 3.75rem) !important;
+    line-height: 1 !important;
+  }
+
   #hero > .relative { padding-left: 1rem; padding-right: 1rem; }
   #hero .mt-10.flex > a { width: 100%; min-height: 3.25rem; }
   #hero .mt-12.flex.flex-col.items-center { align-items: flex-start; text-align: left; }
   #hero .mt-12.flex.flex-col.items-center > div:last-child { text-align: left; }
+
+  #studio,
+  #selected-work,
+  #what-we-build,
+  #build-cycle,
+  #about,
+  #start-a-project {
+    scroll-margin-top: 4.5rem;
+  }
+
+  #start-a-project .display-xl > .line-rise > span {
+    font-size: clamp(2.3rem, 11vw, 3.5rem) !important;
+    line-height: 1.03 !important;
+  }
 }
 
 @media (max-width: 23rem) {
