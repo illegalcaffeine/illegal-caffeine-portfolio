@@ -49,9 +49,9 @@ export function Lightbox({
       role="dialog"
       aria-modal="true"
       aria-label={image.caption}
-      className="fixed inset-0 z-100 flex flex-col bg-background/97 animate-fade-in"
+      className="fixed inset-0 z-100 flex min-h-0 flex-col bg-background/97 animate-fade-in"
     >
-      <div className="flex items-center justify-between border-b border-border px-5 py-4 md:px-10">
+      <div className="flex shrink-0 items-center justify-between border-b border-border px-4 py-3 sm:px-5 sm:py-4 md:px-10">
         <span className="label-mono">
           {String(index + 1).padStart(2, "0")} / {String(images.length).padStart(2, "0")}
         </span>
@@ -59,22 +59,19 @@ export function Lightbox({
           type="button"
           onClick={onClose}
           aria-label="Close image viewer"
-          className="flex h-11 min-w-11 items-center gap-2 px-2 label-mono text-foreground transition-opacity hover:opacity-60"
+          className="label-mono flex h-11 min-w-11 items-center gap-2 px-2 text-foreground transition-opacity hover:opacity-60"
         >
-          Close <X className="h-4 w-4" aria-hidden />
+          <span className="hidden sm:inline">Close</span>
+          <X className="h-4 w-4" aria-hidden />
         </button>
       </div>
 
-      <div className="flex flex-1 items-center justify-center overflow-hidden p-4 md:p-10">
-        <img
-          src={image.src}
-          alt={image.caption}
-          className="max-h-full max-w-full object-contain"
-        />
+      <div className="flex min-h-0 flex-1 items-center justify-center overflow-hidden p-2 sm:p-4 md:p-10">
+        <img src={image.src} alt={image.caption} className="max-h-full max-w-full object-contain" />
       </div>
 
-      <div className="flex items-center justify-between gap-4 border-t border-border px-5 py-4 md:px-10">
-        <p className="label-mono truncate">{image.caption}</p>
+      <div className="flex shrink-0 items-center justify-between gap-3 border-t border-border px-4 py-3 sm:gap-4 sm:px-5 sm:py-4 md:px-10">
+        <p className="label-mono min-w-0 flex-1 truncate">{image.caption}</p>
         <div className="flex shrink-0 items-center gap-1">
           <button
             type="button"
