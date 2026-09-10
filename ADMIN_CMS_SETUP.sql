@@ -25,6 +25,12 @@ create table if not exists public.portfolio_projects (
 
 alter table public.portfolio_projects enable row level security;
 
+-- Data API grants and RLS are separate layers. Grant only the operations each role needs.
+-- Public site can read; signed-in admin can manage content.
+grant select on table public.portfolio_projects to anon;
+grant select, insert, update, delete on table public.portfolio_projects to authenticated;
+grant select, insert, update, delete on table public.portfolio_projects to service_role;
+
 -- Public site may read published projects only.
 drop policy if exists "portfolio published read" on public.portfolio_projects;
 create policy "portfolio published read"
