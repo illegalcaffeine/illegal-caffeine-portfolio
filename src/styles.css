@@ -75,9 +75,7 @@
 }
 
 @layer base {
-  * {
-    border-color: var(--color-border);
-  }
+  * { border-color: var(--color-border); }
 
   html {
     scroll-behavior: smooth;
@@ -96,9 +94,14 @@
     background: var(--color-foreground);
     color: var(--color-background);
   }
-}
 
-/* ---------- typography utilities ---------- */
+  input[type="date"] { color-scheme: dark; }
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1) brightness(1.35);
+    cursor: pointer;
+    opacity: 0.9;
+  }
+}
 
 @utility label-mono {
   font-family: var(--font-mono);
@@ -117,7 +120,6 @@
   font-size: clamp(2.5rem, 8.4vw, 8.5rem);
 }
 
-/* Homepage hero headline: same face and rhythm, noticeably smaller. */
 @utility display-hero {
   font-family: var(--font-display);
   font-weight: 700;
@@ -151,8 +153,6 @@
   color: var(--color-muted-foreground);
 }
 
-/* ---------- motion utilities ---------- */
-
 @utility reveal {
   opacity: 0;
   transform: translateY(28px);
@@ -171,23 +171,15 @@
   clip-path: inset(0 0 100% 0);
   transition: clip-path 1200ms cubic-bezier(0.16, 1, 0.3, 1);
 
-  &[data-visible="true"] {
-    clip-path: inset(0 0 0 0);
-  }
+  &[data-visible="true"] { clip-path: inset(0 0 0 0); }
 }
 
 @utility zoom-frame {
   overflow: hidden;
 
-  & > img {
-    transition: transform 1200ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  &:hover > img {
-    transform: scale(1.045);
-  }
+  & > img { transition: transform 1200ms cubic-bezier(0.16, 1, 0.3, 1); }
+  &:hover > img { transform: scale(1.045); }
 }
-
 
 @utility hairline-grid {
   background-image:
@@ -201,12 +193,8 @@
 }
 
 @keyframes hero-scale-in {
-  from {
-    transform: scale(1.06);
-  }
-  to {
-    transform: scale(1);
-  }
+  from { transform: scale(1.06); }
+  to { transform: scale(1); }
 }
 
 @utility line-rise {
@@ -219,19 +207,13 @@
     transition: transform 1100ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  &[data-visible="true"] > span {
-    transform: none;
-  }
+  &[data-visible="true"] > span { transform: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
+  html { scroll-behavior: auto; }
 
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
