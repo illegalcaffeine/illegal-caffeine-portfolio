@@ -110,6 +110,21 @@
     background-position: center;
     background-size: 1rem 1rem;
   }
+
+  #hero > .absolute {
+    pointer-events: none;
+  }
+
+  #hero > .relative {
+    z-index: 10;
+  }
+
+  #hero a[href="#selected-work"],
+  #hero a[href="/contact"] {
+    position: relative;
+    z-index: 20;
+    pointer-events: auto;
+  }
 }
 
 @utility label-mono {
