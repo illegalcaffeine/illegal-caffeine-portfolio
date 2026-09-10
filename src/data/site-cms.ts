@@ -14,6 +14,12 @@ export type SiteContent = {
     intro_title_2: BilingualText;
     intro_body: BilingualText;
     disciplines: DisciplineContent[];
+    featured_video: {
+      enabled: boolean;
+      youtube_url: string;
+      title: BilingualText;
+      body: BilingualText;
+    };
     about_title_1: BilingualText;
     about_title_2: BilingualText;
     about_body: BilingualText;
@@ -71,6 +77,12 @@ export const defaultSiteContent: SiteContent = {
       { id: "terrain", label: bi("Terrain & Environments", "지형 & 환경"), note: bi("Built like nothing you've seen before.", "전에 본 적 없는 방식으로 구축합니다."), image_url: "", image_urls: [] },
       { id: "streamer", label: bi("Streamer Servers", "스트리머 서버"), note: bi("Complete worlds made for creators and communities.", "크리에이터와 커뮤니티를 위한 완성형 월드."), image_url: "", image_urls: [] },
     ],
+    featured_video: {
+      enabled: false,
+      youtube_url: "",
+      title: bi("Featured Film", "대표 영상"),
+      body: bi("A closer look at the worlds, environments and details behind the work.", "건축과 월드, 디테일을 영상으로 더 가까이 살펴보세요."),
+    },
     about_title_1: bi("Not just blocks.", "단순한 블록이 아닙니다."),
     about_title_2: bi("Places with identity.", "정체성을 가진 장소."),
     about_body: bi(
