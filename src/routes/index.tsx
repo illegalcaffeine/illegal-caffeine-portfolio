@@ -146,7 +146,7 @@ function Hero() {
             <RevealLines
               immediate
               className="display-md mx-auto mt-5 max-w-[18ch] text-foreground"
-              lines={["One of the best builders"]}
+              lines={["One of the best"]}
               stagger={180}
             />
           </div>
@@ -172,7 +172,7 @@ function Hero() {
             immediate
             className="display-md max-w-[22ch] !translate-y-[350px] text-foreground/70"
             lineTextClassName="!translate-y-[40px]"
-            lines={["One of the best builders"]}
+            lines={["One of the best"]}
             stagger={180}
           />
 
