@@ -36,6 +36,14 @@ function ImportPortfolioPage() {
   }, []);
 
   async function importPortfolio() {
+    const isSync = Boolean(count && count > 0);
+    if (isSync) {
+      const confirmed = window.confirm(
+        "WARNING: SYNC EXISTING PORTFOLIO will overwrite matching CMS projects with the original portfolio data stored in the code. Changes you made in /admin may be lost. Continue?",
+      );
+      if (!confirmed) return;
+    }
+
     setImporting(true);
     setMessage(null);
     const rows = portfolioSeedRows.map((row) => ({
@@ -62,7 +70,11 @@ function ImportPortfolioPage() {
     }
     setCount(rows.length);
     setDone(true);
-    setMessage(`기존 포트폴리오 ${rows.length}개를 CMS에 연결했어.`);
+    setMessage(
+      isSync
+        ? `기존 포트폴리오 ${rows.length}개를 초기 코드 데이터와 다시 동기화했어.`
+        : `기존 포트폴리오 ${rows.length}개를 CMS에 연결했어.`,
+    );
   }
 
   if (!ready) {
@@ -82,6 +94,8 @@ function ImportPortfolioPage() {
     );
   }
 
+  const hasCmsProjects = Boolean(count && count > 0);
+
   return (
     <div className="min-h-screen bg-background px-5 pb-16 pt-28 text-foreground md:px-10 md:pt-36">
       <div className="mx-auto max-w-3xl">
@@ -98,6 +112,13 @@ function ImportPortfolioPage() {
           <p className="mt-2 text-sm text-muted-foreground">가져올 기존 프로젝트: <span className="text-foreground">{portfolioSeedRows.length}</span></p>
         </div>
 
+        {hasCmsProjects && (
+          <div className="mt-4 border border-border-strong p-4 text-sm leading-7 text-muted-foreground">
+            <span className="font-semibold text-foreground">SYNC WARNING — </span>
+            SYNC는 코드에 저장된 초기 포트폴리오 데이터로 같은 slug의 CMS 프로젝트를 다시 덮어써. /admin에서 수정한 제목, 설명, 이미지, 공개 상태 등이 되돌아갈 수 있으므로 초기 이전 이후에는 사용하지 않는 것을 권장해.
+          </div>
+        )}
+
         {message && (
           <div className="mt-4 flex items-start gap-3 border border-border px-4 py-4 text-sm text-muted-foreground">
             {done && <Check className="mt-0.5 h-4 w-4 shrink-0 text-foreground" />}
@@ -113,7 +134,7 @@ function ImportPortfolioPage() {
             className="label-mono inline-flex min-h-12 items-center justify-center gap-3 bg-foreground px-6 text-background disabled:opacity-50"
           >
             {importing ? <Loader2 className="h-4 w-4 animate-spin" /> : <Database className="h-4 w-4" />}
-            {count && count > 0 ? "SYNC EXISTING PORTFOLIO" : "IMPORT EXISTING PORTFOLIO"}
+            {hasCmsProjects ? "SYNC EXISTING PORTFOLIO" : "IMPORT EXISTING PORTFOLIO"}
           </button>
           <Link to="/admin" className="label-mono inline-flex min-h-12 items-center justify-center border border-border-strong px-6 text-foreground">
             BACK TO ADMIN
