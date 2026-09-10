@@ -133,14 +133,27 @@ html[lang="ko"] {
     background-size: 1rem 1rem;
   }
 
-  #hero > .absolute { pointer-events: none; }
-  #hero > .relative { position: relative; z-index: 10; }
+  /* The hero background and translated display blocks are visual layers only.
+     Keep them out of hit-testing so the two CTA anchors always own their full
+     clickable rectangles on desktop, tablet and mobile. */
+  #hero > .absolute,
+  #hero .display-md,
+  #hero .body-lg,
+  #hero .mt-16.flex.flex-col.items-center,
+  #hero .absolute.right-10.bottom-16 {
+    pointer-events: none;
+  }
+
+  #hero > .relative {
+    position: relative;
+    z-index: 10;
+  }
 
   #hero a[href="#selected-work"],
   #hero a[href="/contact"] {
-    position: relative;
-    z-index: 20;
-    pointer-events: auto;
+    position: relative !important;
+    z-index: 50 !important;
+    pointer-events: auto !important;
     cursor: pointer;
   }
 }
@@ -274,7 +287,8 @@ html[lang="ko"] {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
+  html { scroll-behavior: auto;
+  }
   *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
   .reveal, .reveal-mask, .line-rise > span { opacity: 1 !important; transform: none !important; clip-path: none !important; }
 }
