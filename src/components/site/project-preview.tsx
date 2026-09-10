@@ -4,7 +4,7 @@ import type { Project } from "@/data/projects";
 import { Reveal } from "@/components/site/reveal";
 import { Parallax } from "@/components/site/parallax";
 import { cn } from "@/lib/utils";
-import { useT } from "@/i18n";
+import { useLanguage, useT } from "@/i18n";
 
 export function ProjectPreview({
   project,
@@ -18,6 +18,16 @@ export function ProjectPreview({
   imageOverride?: string;
 }) {
   const t = useT();
+  const { lang } = useLanguage();
+  const isOrganicBuilds = project.slug === "celestial-palace";
+  const organicDescriptionKo =
+    "순수미술과 입체 조형을 기반으로, 생물부터 복잡한 자연 구조까지 유기적이고 조각적인 형태를 마인크래프트로 옮기는 작업을 전문으로 합니다.";
+  const description =
+    isOrganicBuilds && lang === "ko"
+      ? organicDescriptionKo
+      : t(project.description[0] ?? "");
+  const awardLabel = lang === "ko" ? "2025 KIBO COMPETITION 수상작" : "AWARDED — 2025 KIBO COMPETITION";
+
   const image = (
     <div
       className={cn(
@@ -36,6 +46,12 @@ export function ProjectPreview({
       />
     </div>
   );
+
+  const award = isOrganicBuilds ? (
+    <p className="mt-3 text-right text-[11px] font-medium tracking-[0.12em] text-muted-foreground uppercase sm:text-xs">
+      {awardLabel}
+    </p>
+  ) : null;
 
   const meta = (
     <div
@@ -56,7 +72,7 @@ export function ProjectPreview({
           />
         </h3>
         <p className="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
-          {t(project.description[0] ?? "")}
+          {description}
         </p>
       </div>
     </div>
@@ -77,6 +93,7 @@ export function ProjectPreview({
           )}
         >
           <Parallax strength={26}>{image}</Parallax>
+          {award}
         </Reveal>
         <Reveal className={cn("min-w-0 md:col-span-4", layout === "offset-right" && "md:order-1")}>
           {meta}
@@ -87,7 +104,10 @@ export function ProjectPreview({
 
   return (
     <Link to="/work/$slug" params={{ slug: project.slug }} className="group block min-w-0">
-      <Reveal variant="mask">{image}</Reveal>
+      <Reveal variant="mask">
+        {image}
+        {award}
+      </Reveal>
       <Reveal delay={120}>{meta}</Reveal>
     </Link>
   );
