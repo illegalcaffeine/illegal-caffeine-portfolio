@@ -70,6 +70,7 @@ function FaqPage() {
           <RevealLines
             immediate
             className="display-xl mt-6"
+            lineTextClassName="text-[65px]"
             lines={[lang === "ko" ? "자주 묻는 질문" : "BEFORE YOU INQUIRE"]}
           />
           <p className="body-lg mt-8 max-w-2xl">
